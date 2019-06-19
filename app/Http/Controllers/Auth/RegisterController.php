@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\StoreMember;
-use App\Http\Requests\StoreVolunteer;
 use App\Member;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -13,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\View\View;
+use App\Http\Requests\StoreMember;
+use App\Http\Requests\StoreVolunteer;
 
 class RegisterController extends Controller
 {
@@ -70,7 +70,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -85,8 +85,8 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     * @return User
      */
     protected function create(array $data)
     {
@@ -98,12 +98,12 @@ class RegisterController extends Controller
     }
 
 
-/** Create a new Donor instance after a valid registration.
-* And redirect to home page
-*
-* @param StoreVolunteer $request
-* @return RedirectResponse
-*/
+    /** Create a new Donor instance after a valid registration.
+     * And redirect to home page
+     *
+     * @param StoreVolunteer $request
+     * @return RedirectResponse
+     */
     public function storeVolunteer(StoreVolunteer $request)
     {
 
@@ -128,6 +128,8 @@ class RegisterController extends Controller
         $user_attributes = $request->validated();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
+
+        $user_attributes['membership_active'] = false;
 
         Member::create($user_attributes);
 

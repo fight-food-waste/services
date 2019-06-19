@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $childTypes = [
         'member' => Member::class,
-        'Volunteer' => Volunteer::class,
+        'volunteer' => Volunteer::class,
     ];
 
     /**
