@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\StoreMember;
+use App\Http\Requests\StoreVolunteer;
+use App\Member;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Volunteer;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -41,6 +47,27 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @param string $userType
+     * @return View
+     */
+    public function showRegistrationForm(string $userType)
+    {
+        return view('auth.register.' . $userType);
+    }
+
+    /**
+     * Show the registration dispatcher (choose user type)
+     *
+     * @return View
+     */
+    public function showRegistrationDispatcher()
+    {
+        return view('auth.register.dispatch');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -68,5 +95,42 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+/** Create a new Donor instance after a valid registration.
+* And redirect to home page
+*
+* @param StoreVolunteer $request
+* @return RedirectResponse
+*/
+    public function storeVolunteer(StoreVolunteer $request)
+    {
+
+        $user_attributes = $request->validated();
+
+        $user_attributes['password'] = Hash::make($user_attributes['password']);
+
+        Volunteer::create($user_attributes);
+
+        return redirect($this->redirectPath())->with('success', 'User created successfully.');
+    }
+
+    /**
+     * Create a new Donor instance after a valid registration.
+     * And redirect to home page
+     *
+     * @param StoreMember $request
+     * @return RedirectResponse
+     */
+    public function storeMember(StoreMember $request)
+    {
+        $user_attributes = $request->validated();
+
+        $user_attributes['password'] = Hash::make($user_attributes['password']);
+
+        Member::create($user_attributes);
+
+        return redirect($this->redirectPath())->with('success', 'User created successfully.');
     }
 }

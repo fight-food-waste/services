@@ -5,10 +5,22 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tightenco\Parental\HasChildren;
 
 class User extends Authenticatable
 {
+    use HasChildren;
     use Notifiable;
+
+    /**
+     * Don't want to store raw class names in the type column
+     *
+     * @var array
+     */
+    protected $childTypes = [
+        'member' => Member::class,
+        'Volunteer' => Volunteer::class,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password',
     ];
 
     /**
