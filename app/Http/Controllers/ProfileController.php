@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,12 +22,11 @@ class ProfileController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param Request $request
+     * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $currentUserId = Auth::user()->id;
-        $currentUser = User::findOrFail($currentUserId);
-        return view('profile', ['user' => $currentUser]);
+        return view('profile', ['user' => $request->user()]);
     }
 }
