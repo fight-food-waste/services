@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Membership;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Redirector;
 
 class MembershipController extends Controller
 {
@@ -21,25 +23,32 @@ class MembershipController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param Request $request
+     * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $currentUserId = Auth::user()->id;
-        $currentUser = User::findOrFail($currentUserId);
-        return view('membership', ['user' => $currentUser]);
+        $user = $request->user();
+
+        return view('membership', ['user' => $user]);
     }
 
-    public function renew()
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function renew(Request $request)
     {
-        $currentUserId = Auth::user()->id;
-        $currentUser = User::findOrFail($currentUserId);
+        $user = $request->user();
 
-        $currentUser->membership_active = true;
-        $currentUser->membership_expiration = date('Y-m-d', strtotime('+1 year'));
-        $currentUser->save();
+        if ($user->hasValidMembership()) {
+            return redirect('/membership')->with('success', 'You already have a valid membership');
+        } else {
+            $user->membership_end_date = date('Y-m-d', strtotime('+1 years'));
+            $user->save();
 
-        return redirect('/membership')->with('success', 'You now have a valid membership');
+            return redirect('/membership')->with('success', 'You now have a valid membership');
 
+        }
     }
 }

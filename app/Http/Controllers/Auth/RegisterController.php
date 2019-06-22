@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMember;
+use App\Http\Requests\StoreVolunteer;
 use App\Member;
 use App\User;
-use App\Http\Controllers\Controller;
 use App\Volunteer;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\View\View;
-use App\Http\Requests\StoreMember;
-use App\Http\Requests\StoreVolunteer;
 
 class RegisterController extends Controller
 {
@@ -128,8 +128,6 @@ class RegisterController extends Controller
         $user_attributes = $request->validated();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
-
-        $user_attributes['membership_active'] = false;
 
         Member::create($user_attributes);
 
