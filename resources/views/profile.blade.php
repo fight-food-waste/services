@@ -9,8 +9,9 @@
 
                     <div class="card-body">
                         Welcome, {{ $user->first_name }}<br>
-
-                        <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
+                        @if($user->type == "member")
+                            <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
+                        @endif
                     </div>
                 </div>
             </div>
