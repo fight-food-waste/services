@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('type');
             $table->date('membership_end_date')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }

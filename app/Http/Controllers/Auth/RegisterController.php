@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMember;
 use App\Http\Requests\StoreVolunteer;
 use App\Member;
+use App\Service;
 use App\User;
 use App\Volunteer;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -54,7 +55,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm(string $userType)
     {
-        return view('auth.register.' . $userType);
+        return view('auth.register.' . $userType, ['services' => Service::all()]);
     }
 
     /**
@@ -111,6 +112,8 @@ class RegisterController extends Controller
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
 
+        $user_attributes['status'] = 0; //waiting approval by default
+
         Volunteer::create($user_attributes);
 
         return redirect($this->redirectPath())->with('success', 'User created successfully.');
@@ -128,6 +131,8 @@ class RegisterController extends Controller
         $user_attributes = $request->validated();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
+
+        $user_attributes['status'] = 1; //approved by default
 
         Member::create($user_attributes);
 

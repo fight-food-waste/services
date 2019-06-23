@@ -3,19 +3,15 @@
 @section('form-specifics')
 
     <div class="form-group row">
-        <label for="volunteer-type" class="col-md-4 col-form-label text-md-right">{{ __('What do you do?') }}</label>
+        <label for="service_id" class="col-md-4 col-form-label text-md-right">{{ __('What do you do?') }}</label>
 
         <div class="col-md-6">
-            <select id="volunteer-type"  class="@error('volunteer-type') is-invalid @enderror">
-                <option value="">Cooking classes</option>
-                <option value="">Car sharing</option>
-                <option value="">Repair services</option>
-                <option value="">Guarding</option>
-                <option value="">Housing/DIY</option>
-                <option value="">Electricity</option>
-                <option value="">Plumbing</option>
+            <select name="service_id" id="service_id" class="@error('service_id') is-invalid @enderror">
+                @foreach ($services as $service)
+                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                @endforeach
             </select>
-            @error('volunteer-type')
+            @error('service_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

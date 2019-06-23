@@ -10,14 +10,7 @@
                     <div class="card-body">
                         Welcome, {{ $user->first_name }}<br>
 
-                        @if($user->type == "member")
-                            @if($user->membership_active)
-                                Great, your membership is active until the {{ $user->membership_expiration }}
-                            @else
-                                Your membership is not active. You can't request services.
-                                <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
-                            @endif
-                        @endif
+                        <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
                     </div>
                 </div>
             </div>

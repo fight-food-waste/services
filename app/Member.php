@@ -4,12 +4,15 @@ namespace App;
 
 use Tightenco\Parental\HasParent;
 
+/**
+ * @property mixed membership_end_date
+ */
 class Member extends User
 {
     use HasParent;
 
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'membership_end_date',
+        'first_name', 'last_name', 'email', 'password', 'membership_end_date', 'status'
     ];
 
     public function hasValidMembership()
