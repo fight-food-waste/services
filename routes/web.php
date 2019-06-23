@@ -33,3 +33,5 @@ Route::get('/membership', 'MembershipController@index')->name('membership');
 Route::get('/membership/renew', 'MembershipController@renew');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/volunteer/{id}/approve', 'AdminController@approveVolunteer')->where('id', '[0-9]+');
+Route::get('/admin/volunteer/{id}/reject', 'AdminController@rejectVolunteer')->where('id', '[0-9]+');

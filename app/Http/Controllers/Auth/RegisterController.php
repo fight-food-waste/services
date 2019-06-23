@@ -112,7 +112,7 @@ class RegisterController extends Controller
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
 
-        $user_attributes['status'] = 0; //waiting approval by default
+        $user_attributes['status'] = "unapproved";
 
         Volunteer::create($user_attributes);
 
@@ -132,7 +132,7 @@ class RegisterController extends Controller
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
 
-        $user_attributes['status'] = 1; //approved by default
+        $user_attributes['status'] = "active";
 
         Member::create($user_attributes);
 
