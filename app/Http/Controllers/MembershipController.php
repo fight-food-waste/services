@@ -30,6 +30,10 @@ class MembershipController extends Controller
     {
         $user = $request->user();
 
+        if ($user->type != "member") {
+            abort(403);
+        }
+
         return view('membership', ['user' => $user]);
     }
 
@@ -40,6 +44,10 @@ class MembershipController extends Controller
     public function renew(Request $request)
     {
         $user = $request->user();
+
+        if ($user->type != "member") {
+            abort(403);
+        }
 
         if ($user->hasValidMembership()) {
             return redirect('/membership')->with('success', 'You already have a valid membership');
