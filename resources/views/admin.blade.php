@@ -39,9 +39,11 @@
                                         <td>{{ $volunteer->first_name }}</td>
                                         <td>{{ $volunteer->last_name }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-secondary">
-                                                <i class="fas fa-download"></i>
-                                            </button>
+                                            <a href="{{ url('admin/application_files/' . $volunteer->application_filename) }}">
+                                                <button type="button" class="btn btn-sm btn-secondary">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </a>
                                         </td>
                                         <td>
                                             <a href="/admin/volunteer/{{ $volunteer->id }}/approve">

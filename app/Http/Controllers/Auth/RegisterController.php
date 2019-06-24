@@ -7,12 +7,10 @@ use App\Http\Requests\StoreMember;
 use App\Http\Requests\StoreVolunteer;
 use App\Member;
 use App\Service;
-use App\User;
 use App\Volunteer;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class RegisterController extends Controller
@@ -68,38 +66,8 @@ class RegisterController extends Controller
         return view('auth.register.dispatch');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
-
-
-    /** Create a new Donor instance after a valid registration.
+    /** Create a new Volunteer instance after a valid registration.
      * And redirect to home page
      *
      * @param StoreVolunteer $request
@@ -107,12 +75,16 @@ class RegisterController extends Controller
      */
     public function storeVolunteer(StoreVolunteer $request)
     {
-
         $user_attributes = $request->validated();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
-
         $user_attributes['status'] = "unapproved";
+
+        // Upload application file
+        $application_file = $user_attributes['application_file'];
+        $filename = uniqid() . ".pdf";
+        $application_file->storeAs('application_files', $filename);
+        $user_attributes['application_filename'] = $filename;
 
         Volunteer::create($user_attributes);
 
@@ -120,7 +92,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new Donor instance after a valid registration.
+     * Create a new Member instance after a valid registration.
      * And redirect to home page
      *
      * @param StoreMember $request

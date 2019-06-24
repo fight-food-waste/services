@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Volunteer;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminController extends Controller
 {
@@ -18,6 +21,13 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+    public function checkAdmin(Request $request)
+    {
+        if ($request->user()->type != "admin") {
+            abort(403);
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -26,9 +36,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user()->type != "admin") {
-            abort(403);
-        }
+        $this->checkAdmin($request);
 
         return view('admin', [
             'user' => $request->user(),
@@ -36,23 +44,55 @@ class AdminController extends Controller
         ]);
     }
 
-    public function approveVolunteer(int $id)
+    /**
+     * Approve a volunteer
+     *
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function approveVolunteer(Request $request)
     {
-        $volunteer = Volunteer::where('id', $id)->first();
+        $this->checkAdmin($request);
+
+        $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
         $volunteer->status = "active";
         $volunteer->save();
 
-        return redirect('/admin')->with('success', "Volunteer $id has been approved.");
+        return redirect('/admin')->with('success', 'Volunteer ' . $request->route('id') . ' has been approved.');
     }
 
-    public function rejectVolunteer(int $id)
+    /**
+     * Reject a Volunteer
+     *
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function rejectVolunteer(Request $request)
     {
-        $volunteer = Volunteer::where('id', $id)->first();
+        $this->checkAdmin($request);
+
+        $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
         $volunteer->status = "rejected";
         $volunteer->save();
 
-        return redirect('/admin')->with('success', "Volunteer $id has been rejected.");
+        return redirect('/admin')->with('success', 'Volunteer ' . $request->route('id') . ' has been rejected.');
+    }
+
+    /**
+     * Download a volunteer application PDF
+     *
+     * @param Request $request
+     * @return BinaryFileResponse
+     */
+    public function downloadVolunteerApplication(Request $request)
+    {
+        $this->checkAdmin($request);
+
+        $filename = $request->route('id') . '.pdf';
+        $filepath = storage_path('app' . DIRECTORY_SEPARATOR . 'application_files' . DIRECTORY_SEPARATOR . $filename);
+
+        return response()->file($filepath);
     }
 }

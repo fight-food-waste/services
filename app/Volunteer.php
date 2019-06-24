@@ -9,7 +9,7 @@ class Volunteer extends User
     use HasParent;
 
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'service_id', 'status',
+        'first_name', 'last_name', 'email', 'password', 'service_id', 'status', 'application_filename'
     ];
 
     /**

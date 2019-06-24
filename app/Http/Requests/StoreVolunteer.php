@@ -28,7 +28,8 @@ class StoreVolunteer extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'service_id' => ['required', 'integer']
+            'service_id' => ['required', 'integer'],
+            'application_file' => ['required', 'file', 'mimes:pdf']
         ];
     }
 }
