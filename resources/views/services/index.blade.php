@@ -10,8 +10,6 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ url('services/new/prepare') }}">
                             @csrf
 
-
-                            {{$errors}}
                             <div class="form-group row">
                                 <label for="service_id"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Type of service') }}</label>
@@ -36,7 +34,7 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('Appointment time') }}</label>
 
                                 <div class="col-md-6">
-                                    <input class="form-control" type="datetime-local" id="start_date"
+                                    <input class="form-control @error('start_date') is-invalid @enderror" type="datetime-local" id="start_date"
                                            name="start_date" step="300"
                                            min="{{ date("Y-m-d", strtotime("+1 day")) }}T00:00">
                                     @error('start_date')
@@ -51,7 +49,7 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('Hours requested') }}</label>
 
                                 <div class="col-md-6">
-                                    <input class="form-control" type="number" id="hour_count"
+                                    <input class="form-control @error('hour_count') is-invalid @enderror" type="number" id="hour_count"
                                            name="hour_count" step="1" value="1">
                                     @error('hour_count')
                                     <span class="invalid-feedback" role="alert">
