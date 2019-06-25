@@ -103,7 +103,6 @@ class RegisterController extends Controller
         $user_attributes = $request->validated();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
-
         $user_attributes['status'] = "active";
 
         Member::create($user_attributes);

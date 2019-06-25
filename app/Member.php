@@ -24,4 +24,9 @@ class Member extends User
         }
         return false;
     }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany('App\ServiceRequest', 'member_id');
+    }
 }

@@ -2,8 +2,6 @@
 
 @section('form-specifics')
 
-    {{ $errors }}
-
     <div class="form-group row">
         <label for="service_id" class="col-md-4 col-form-label text-md-right">{{ __('What do you do?') }}</label>
 

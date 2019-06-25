@@ -23,9 +23,7 @@ class AdminController extends Controller
 
     public function checkAdmin(Request $request)
     {
-        if ($request->user()->type != "admin") {
-            abort(403);
-        }
+        abort_if($request->user()->type != "admin", 403);
     }
 
     /**
