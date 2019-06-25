@@ -18,12 +18,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-    }
-
-    public function checkAdmin(Request $request)
-    {
-        abort_if($request->user()->type != "admin", 403);
+        $this->middleware(['auth', 'admin']);
     }
 
     /**
@@ -34,8 +29,6 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $this->checkAdmin($request);
-
         return view('admin', [
             'user' => $request->user(),
             'unapproved_volunteers' => Volunteer::where('status', 'unapproved')->get(),
@@ -54,8 +47,6 @@ class AdminController extends Controller
      */
     public function approveVolunteer(Request $request)
     {
-        $this->checkAdmin($request);
-
         $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
         $volunteer->status = "active";
@@ -72,8 +63,6 @@ class AdminController extends Controller
      */
     public function rejectVolunteer(Request $request)
     {
-        $this->checkAdmin($request);
-
         $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
         $volunteer->status = "rejected";
@@ -90,8 +79,6 @@ class AdminController extends Controller
      */
     public function downloadVolunteerApplication(Request $request)
     {
-        $this->checkAdmin($request);
-
         $filename = $request->route('id') . '.pdf';
         $filepath = storage_path('app' . DIRECTORY_SEPARATOR . 'application_files' . DIRECTORY_SEPARATOR . $filename);
 
