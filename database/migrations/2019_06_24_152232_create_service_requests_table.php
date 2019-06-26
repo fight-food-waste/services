@@ -18,6 +18,7 @@ class CreateServiceRequestsTable extends Migration
             $table->timestamps();
             $table->dateTime('start_date');
             $table->integer('hour_count');
+            $table->string('status');
             $table->bigInteger('service_id')->unsigned();
             $table->bigInteger('member_id')->unsigned();
             $table->bigInteger('volunteer_id')->unsigned();

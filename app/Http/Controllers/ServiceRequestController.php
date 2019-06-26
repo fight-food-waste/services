@@ -25,9 +25,14 @@ class ServiceRequestController extends Controller
 
     public function index(Request $request)
     {
+        if ($request->user()->type == "admin") {
+            $service_requests = ServiceRequest::all();
+        } else {
+            $service_requests = $request->user()->serviceRequests()->get();
+        }
         return view('services.index', [
             'user' => $request->user(),
-            'service_requests' => $request->user()->serviceRequests()->get(),
+            'service_requests' => $service_requests,
             'services' => Service::all(),
         ]);
     }
@@ -38,9 +43,12 @@ class ServiceRequestController extends Controller
      * @param ServiceRequest $serviceRequest
      * @return mixed
      */
-    private function getAvailableVolunteers(ServiceRequest $serviceRequest) {
+    private function getAvailableVolunteers(ServiceRequest $serviceRequest)
+    {
         // Get all ServiceRequest for the same Service that can potentially be conflicting for the time range
-        $serviceRequestsForSameService = ServiceRequest::where('service_id', $serviceRequest->service_id)->get();
+        $serviceRequestsForSameService = ServiceRequest::where('service_id', $serviceRequest->service_id)
+            ->where('status', 'approved')
+            ->get();
 
         $conflictingServiceRequests = array();
 
@@ -57,7 +65,10 @@ class ServiceRequestController extends Controller
         }
 
         // Get all volunteers which don't have a ServiceRequest conflicting with the new one
-        $availableVolunteers = Volunteer::where('service_id', $serviceRequest->service_id)->whereNotIn('id', $conflictingServiceRequests)->get();
+        $availableVolunteers = Volunteer::where('service_id', $serviceRequest->service_id)
+            ->whereNotIn('id', $conflictingServiceRequests)
+            ->where('status', 'active')
+            ->get();
 
         return $availableVolunteers;
     }
@@ -70,6 +81,8 @@ class ServiceRequestController extends Controller
      */
     public function prepareNew(PrepareServiceRequest $request)
     {
+        abort_if(! $request->user()->hasValidMembership(), 403);
+
         $serviceRequestAttributes = $request->validated();
 
         // Create new object to access getEndDate(), it will be saved after the next form
@@ -90,13 +103,16 @@ class ServiceRequestController extends Controller
 
     public function confirmNew(StoreServiceRequest $request)
     {
+        abort_if(! $request->user()->hasValidMembership(), 403);
+
         $serviceRequestAttributes = $request->validated();
 
         $serviceRequestAttributes['member_id'] = $request->user()->id;
+        $serviceRequestAttributes['unapproved'] = $request->user()->id;
 
         ServiceRequest::create($serviceRequestAttributes);
 
-    return redirect('services')->with('success', 'Service request completed successfully.');
+        return redirect('services')->with('success', 'Service request completed successfully.');
     }
 
 }

@@ -4,70 +4,82 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Make a new service request</div>
-                    <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ url('services/new/prepare') }}">
-                            @csrf
+                @if($user->type == 'member')
+                        <div class="card">
+                            <div class="card-header">Make a new service request</div>
+                            <div class="card-body">
+                                @if($user->hasValidMembership())
 
-                            <div class="form-group row">
-                                <label for="service_id"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Type of service') }}</label>
+                                <form method="POST" enctype="multipart/form-data"
+                                      action="{{ url('services/new/prepare') }}">
+                                    @csrf
 
-                                <div class="col-md-6">
-                                    <select name="service_id" id="service_id"
-                                            class="form-control @error('service_id') is-invalid @enderror">
-                                        @foreach ($services as $service)
-                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('service_id')
-                                    <span class="invalid-feedback" role="alert">
+                                    <div class="form-group row">
+                                        <label for="service_id"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Type of service') }}</label>
+
+                                        <div class="col-md-6">
+                                            <select name="service_id" id="service_id"
+                                                    class="form-control @error('service_id') is-invalid @enderror">
+                                                @foreach ($services as $service)
+                                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('service_id')
+                                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </div>
-                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                            <div class="form-group row">
-                                <label for="start_date"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Appointment time') }}</label>
+                                    <div class="form-group row">
+                                        <label for="start_date"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Appointment time') }}</label>
 
-                                <div class="col-md-6">
-                                    <input class="form-control @error('start_date') is-invalid @enderror" type="datetime-local" id="start_date"
-                                           name="start_date" step="300"
-                                           min="{{ date("Y-m-d", strtotime("+1 day")) }}T00:00">
-                                    @error('start_date')
-                                    <span class="invalid-feedback" role="alert">
+                                        <div class="col-md-6">
+                                            <input class="form-control @error('start_date') is-invalid @enderror"
+                                                   type="datetime-local" id="start_date"
+                                                   name="start_date" step="300"
+                                                   min="{{ date("Y-m-d", strtotime("+1 day")) }}T00:00">
+                                            @error('start_date')
+                                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="hour_count"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Hours requested') }}</label>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="hour_count"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Hours requested') }}</label>
 
-                                <div class="col-md-6">
-                                    <input class="form-control @error('hour_count') is-invalid @enderror" type="number" id="hour_count"
-                                           name="hour_count" step="1" value="1">
-                                    @error('hour_count')
-                                    <span class="invalid-feedback" role="alert">
+                                        <div class="col-md-6">
+                                            <input class="form-control @error('hour_count') is-invalid @enderror"
+                                                   type="number" id="hour_count"
+                                                   name="hour_count" step="1" value="1">
+                                            @error('hour_count')
+                                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-8 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Send service request') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                @else
+                                    You don't have a valid membership, so you can't request a service!
+                                @endif
                             </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Send service request') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+
+                @endif
+
                 <div class="card card-more">
                     <div class="card-header">Service Requests</div>
 
@@ -79,9 +91,15 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Day</th>
                                     <th scope="col">Time</th>
-                                    <th scope="col">Number of hours</th>
+                                    <th scope="col">Hours</th>
                                     <th scope="col">Service</th>
-                                    <th scope="col">Volunteer</th>
+                                    @if ($user->type == 'member' || $user->type == 'admin')
+                                        <th scope="col">Volunteer</th>
+                                    @endif
+                                    @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                        <th scope="col">Member</th>
+                                    @endif
+                                    <th scope="col">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -92,14 +110,31 @@
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
                                         <td>{{ $service_request->service()->first()->name }}</td>
-                                        <td>{{ $service_request->volunteer()->first()->first_name }}
-                                            {{ $service_request->volunteer()->first()->last_name }}</td>
+                                        @if ($user->type == 'member' || $user->type == 'admin')
+                                            <td>{{ $service_request->volunteer()->first()->first_name }}
+                                                {{ $service_request->volunteer()->first()->last_name }}</td>
+                                        @endif
+                                        @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                            <td>{{ $service_request->member()->first()->first_name }}
+                                                {{ $service_request->member()->first()->last_name }}</td>
+                                        @endif
+                                        <td>{{ $service_request->status }}
+                                            <a href="/admin/volunteer/{{ $volunteer->id }}/approve">
+                                                <button type="button" class="btn btn-sm btn-success">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </a>
+                                            <a href="/admin/volunteer/{{ $volunteer->id }}/reject">
+                                                <button type="button" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         @else
-                            There is no volunteer waiting for approval!
+                            You have not made any service request yet.
                         @endif
                     </div>
                 </div>

@@ -19,4 +19,9 @@ class Volunteer extends User
     {
         return $this->hasOne('App\Service');
     }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany('App\ServiceRequest', 'volunteer_id');
+    }
 }
