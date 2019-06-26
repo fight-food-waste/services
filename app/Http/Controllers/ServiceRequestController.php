@@ -115,4 +115,32 @@ class ServiceRequestController extends Controller
         return redirect('services')->with('success', 'Service request completed successfully.');
     }
 
+    public function approve(Request $request)
+    {
+        $serviceRequest = ServiceRequest::where('id', $request->route('id'))->first();
+
+        if ($serviceRequest->volunteer_id != $request->user()->id) {
+            abort(403);
+        }
+
+        $serviceRequest->status = "approved";
+        $serviceRequest->save();
+
+        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been approved.');
+    }
+
+    public function reject(Request $request)
+    {
+        $serviceRequest = ServiceRequest::where('id', $request->route('id'))->first();
+
+        if ($serviceRequest->volunteer_id != $request->user()->id) {
+            abort(403);
+        }
+
+        $serviceRequest->status = "rejected";
+        $serviceRequest->save();
+
+        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
+    }
+
 }

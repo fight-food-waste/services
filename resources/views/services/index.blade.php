@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 @if($user->type == 'member')
-                        <div class="card">
-                            <div class="card-header">Make a new service request</div>
-                            <div class="card-body">
-                                @if($user->hasValidMembership())
+                    <div class="card">
+                        <div class="card-header">Make a new service request</div>
+                        <div class="card-body">
+                            @if($user->hasValidMembership())
 
                                 <form method="POST" enctype="multipart/form-data"
                                       action="{{ url('services/new/prepare') }}">
@@ -72,17 +72,21 @@
                                         </div>
                                     </div>
                                 </form>
-                                @else
-                                    You don't have a valid membership, so you can't request a service!
-                                @endif
-                            </div>
+                            @else
+                                You don't have a valid membership, so you can't request a service!
+                            @endif
                         </div>
+                    </div>
 
                 @endif
 
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card card-more">
                     <div class="card-header">Service Requests</div>
-
                     <div class="card-body">
                         @if (sizeof($service_requests) > 0)
                             <table class="table">
@@ -118,6 +122,22 @@
                                             <td>{{ $service_request->member()->first()->first_name }}
                                                 {{ $service_request->member()->first()->last_name }}</td>
                                         @endif
+                                        <td>
+                                            @if($service_request->status == "unapproved")
+                                                <a href="/services/request/{{ $service_request->id }}/approve">
+                                                    <button type="button" class="btn btn-sm btn-success">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </a>
+                                                <a href="/services/request/{{ $service_request->id }}/reject">
+                                                    <button type="button" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </a>
+                                            @else
+                                                {{ ucfirst($service_request->status)  }}
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

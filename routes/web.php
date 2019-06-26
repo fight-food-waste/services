@@ -40,5 +40,7 @@ Route::get('admin/application_files/{id}.pdf', 'AdminController@downloadVoluntee
 Route::get('services', 'ServiceRequestController@index')->name('services');
 Route::post('services/new/prepare', 'ServiceRequestController@prepareNew');
 Route::post('services/new/confirm', 'ServiceRequestController@confirmNew');
+Route::get('services/request/{id}/approve', 'ServiceRequestController@approve')->where('id', '[0-9]+');
+Route::get('services/request/{id}/reject', 'ServiceRequestController@reject')->where('id', '[0-9]+');
 
 Route::get('planning/export', 'ExportController@planning')->name('planning.export');
