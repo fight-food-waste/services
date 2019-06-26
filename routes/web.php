@@ -41,4 +41,4 @@ Route::get('services', 'ServiceRequestController@index')->name('services');
 Route::post('services/new/prepare', 'ServiceRequestController@prepareNew');
 Route::post('services/new/confirm', 'ServiceRequestController@confirmNew');
 
-Route::get('export', 'ExportController@planning');
+Route::get('planning/export', 'ExportController@planning')->name('planning.export');

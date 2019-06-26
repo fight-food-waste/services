@@ -12,7 +12,7 @@
                         @if($user->type == "member")
                             <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
                         @elseif($user->type == "volunteer")
-                            <br>You can download your planning <a href="{{ url('export') }}">here</a>
+                            <br>You can download your planning <a href="{{ route('planning.export') }}">here</a>
                         @endif
                     </div>
                 </div>
