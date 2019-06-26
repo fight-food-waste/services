@@ -43,14 +43,27 @@ class ServiceRequest extends Model
 
     public function getEndDate()
     {
-        if (!isset($this->endDate)) {
+        if (!isset($this->end_date)) {
             $this->calculateEndDate();
         }
-        return $this->endDate;
+        return $this->end_date;
     }
 
     public function getStartDate()
     {
         return date("Y-m-d H:i:s", strtotime($this->start_date));
+    }
+
+    public function getStartDay()
+    {
+        return date("Y-m-d", strtotime($this->start_date));
+    }
+
+    public function getEndDay()
+    {
+        if (!isset($this->end_date)) {
+            $this->calculateEndDate();
+        }
+        return date("Y-m-d", strtotime($this->end_date));
     }
 }

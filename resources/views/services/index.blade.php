@@ -118,17 +118,6 @@
                                             <td>{{ $service_request->member()->first()->first_name }}
                                                 {{ $service_request->member()->first()->last_name }}</td>
                                         @endif
-                                        <td>{{ $service_request->status }}
-                                            <a href="/admin/volunteer/{{ $volunteer->id }}/approve">
-                                                <button type="button" class="btn btn-sm btn-success">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                            </a>
-                                            <a href="/admin/volunteer/{{ $volunteer->id }}/reject">
-                                                <button type="button" class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

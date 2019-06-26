@@ -40,3 +40,5 @@ Route::get('admin/application_files/{id}.pdf', 'AdminController@downloadVoluntee
 Route::get('services', 'ServiceRequestController@index')->name('services');
 Route::post('services/new/prepare', 'ServiceRequestController@prepareNew');
 Route::post('services/new/confirm', 'ServiceRequestController@confirmNew');
+
+Route::get('export', 'ExportController@planning');
