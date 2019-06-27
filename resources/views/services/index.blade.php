@@ -123,7 +123,7 @@
                                                 {{ $service_request->member()->first()->last_name }}</td>
                                         @endif
                                         <td>
-                                            @if($service_request->status == "unapproved")
+                                            @if($service_request->status == "unapproved" && $user->type == "volunteer")
                                                 <a href="/services/request/{{ $service_request->id }}/approve">
                                                     <button type="button" class="btn btn-sm btn-success">
                                                         <i class="fas fa-check"></i>

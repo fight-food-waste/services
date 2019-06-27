@@ -108,7 +108,7 @@ class ServiceRequestController extends Controller
         $serviceRequestAttributes = $request->validated();
 
         $serviceRequestAttributes['member_id'] = $request->user()->id;
-        $serviceRequestAttributes['unapproved'] = $request->user()->id;
+        $serviceRequestAttributes['status'] = 'unapproved';
 
         ServiceRequest::create($serviceRequestAttributes);
 
