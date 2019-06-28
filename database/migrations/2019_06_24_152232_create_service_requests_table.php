@@ -14,7 +14,7 @@ class CreateServiceRequestsTable extends Migration
     public function up()
     {
         Schema::create('service_requests', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->dateTime('start_date');
             $table->integer('hour_count');
