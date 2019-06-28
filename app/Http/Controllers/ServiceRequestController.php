@@ -72,7 +72,7 @@ class ServiceRequestController extends Controller
             ->where('status', 'approved')
             ->get();
 
-        $conflictingServiceRequests = array();
+        $conflictingServiceRequests = [];
 
         // Extract all conflicting ServiceRequest
         foreach ($serviceRequestsForSameService as $tmpServiceRequest) {
