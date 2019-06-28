@@ -155,7 +155,7 @@ class ServiceRequestController extends Controller
     {
         $serviceRequest = ServiceRequest::where('id', $request->route('id'))->first();
 
-        if ($serviceRequest->volunteer_id != $request->user()->id) {
+        if ($serviceRequest->volunteer_id != $request->user()->id && $request->user()->type != "admin") {
             abort(403);
         }
 

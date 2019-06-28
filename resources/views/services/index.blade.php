@@ -124,17 +124,25 @@
                                                 {{ $service_request->member()->first()->last_name }}</td>
                                         @endif
                                         <td>
-                                            @if($service_request->status == "unapproved" && $user->type == "volunteer")
-                                                <a href="/services/request/{{ $service_request->id }}/approve">
-                                                    <button type="button" class="btn btn-sm btn-success">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="/services/request/{{ $service_request->id }}/reject">
-                                                    <button type="button" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </a>
+                                            @if($service_request->status == "unapproved")
+                                                @if($user->type == "volunteer")
+                                                    <a href="/services/request/{{ $service_request->id }}/approve">
+                                                        <button type="button" class="btn btn-sm btn-success">
+                                                            <i class="fas fa-check"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="/services/request/{{ $service_request->id }}/reject">
+                                                        <button type="button" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </a>
+                                                @elseif ($user->type == "admin")
+                                                    <a href="/services/request/{{ $service_request->id }}/reject">
+                                                        <button type="button" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
                                             @else
                                                 {{ ucfirst($service_request->status)  }}
                                             @endif
