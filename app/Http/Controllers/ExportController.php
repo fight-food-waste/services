@@ -8,6 +8,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function planning(Request $request) {
         $volunteer_id = $request->user()->id;
         return Excel::download(new PlanningExport($volunteer_id), 'planning.xlsx');
