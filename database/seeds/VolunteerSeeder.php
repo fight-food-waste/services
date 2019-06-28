@@ -23,5 +23,17 @@ class VolunteerSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+
+        Volunteer::create([
+            'first_name' => 'Arthur',
+            'last_name' => 'Papaye',
+            'email' => 'arthur@papaye.fr',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'status' => 'active',
+            'service_id' => 2,
+            'application_filename' => 'jdkjfdhfjs.pdf',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }
