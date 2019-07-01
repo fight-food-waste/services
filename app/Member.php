@@ -2,10 +2,23 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Tightenco\Parental\HasParent;
 
 /**
+ * App\Member
+ *
  * @property mixed membership_end_date
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read Collection|ServiceRequest[] $serviceRequests
+ * @method static Builder|Member newModelQuery()
+ * @method static Builder|Member newQuery()
+ * @method static Builder|Member query()
+ * @mixin Eloquent
  */
 class Member extends User
 {

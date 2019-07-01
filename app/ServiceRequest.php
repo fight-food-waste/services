@@ -2,9 +2,13 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\ServiceRequest
+ *
  * @property string start_date
  * @property string end_date
  * @property string status
@@ -12,6 +16,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int service_id
  * @property int member_id
  * @property int volunteer_id
+ * @property-read Member $member
+ * @property-read Service $service
+ * @property-read Volunteer $volunteer
+ * @method static Builder|ServiceRequest newModelQuery()
+ * @method static Builder|ServiceRequest newQuery()
+ * @method static Builder|ServiceRequest query()
+ * @mixin Eloquent
  */
 class ServiceRequest extends Model
 {
