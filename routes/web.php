@@ -44,3 +44,6 @@ Route::get('services/request/{id}/approve', 'ServiceRequestController@approve')-
 Route::get('services/request/{id}/reject', 'ServiceRequestController@reject')->where('id', '[0-9]+');
 
 Route::get('planning/export', 'ExportController@planning')->name('planning.export');
+
+Route::get('member/create', 'MemberController@create')->name('member.create');
+Route::post('member', 'MemberController@store')->name('member.store');
