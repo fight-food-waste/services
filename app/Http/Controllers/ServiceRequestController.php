@@ -26,25 +26,29 @@ class ServiceRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->type == "admin") {
-            $rejectedServiceRequests = ServiceRequest::where('status', 'rejected')->get();
+            $serviceRequests = ServiceRequest::all();
 
-            $unapprovedServiceRequests = ServiceRequest::where('status', 'unapproved')->get();
+            $rejectedServiceRequests =  $serviceRequests->where('status', 'rejected')->get();
 
-            $pastServiceRequests = ServiceRequest::where('start_date', '<', date('Y-m-d'))
+            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved')->get();
+
+            $pastServiceRequests = $serviceRequests->where('start_date', '<', date('Y-m-d'))
                 ->where('status', 'approved')->get();
 
-            $incomingServiceRequests = ServiceRequest::where('start_date', '>=', date('Y-m-d'))
+            $incomingServiceRequests = $serviceRequests->where('start_date', '>=', date('Y-m-d'))
                 ->where('status', 'approved')->get();
         } else {
-            $rejectedServiceRequests = $request->user()->serviceRequests()->where('status', 'rejected')->get();
+            $serviceRequests = $request->user()->serviceRequests();
 
-            $unapprovedServiceRequests = $request->user()->serviceRequests()->where('status', 'unapproved')->get();
+            $rejectedServiceRequests = $serviceRequests->where('status', 'rejected')->get();
 
-            $pastServiceRequests = $request->user()->serviceRequests()
+            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved')->get();
+
+            $pastServiceRequests = $serviceRequests
                 ->where('start_date', '<', date('Y-m-d'))
                 ->where('status', 'approved')->get();
 
-            $incomingServiceRequests = $request->user()->serviceRequests()
+            $incomingServiceRequests = $serviceRequests
                 ->where('start_date', '>', date('Y-m-d'))
                 ->where('status', 'approved')->get();
         }
