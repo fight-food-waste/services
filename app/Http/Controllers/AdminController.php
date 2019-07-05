@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Member;
 use App\Volunteer;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -29,13 +30,16 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        $volunteers = Volunteer::all();
+        $members = Member::where('status', 'active')->get();
+
         return view('admin', [
             'user' => $request->user(),
-            'unapproved_volunteers' => Volunteer::where('status', 'unapproved')->get(),
-            'approved_volunteers' => Volunteer::where('status', 'active')->get(),
-            'rejected_volunteers' => Volunteer::where('status', 'rejected')->get(),
-            'banned_volunteers' => Volunteer::where('status', 'banned')->get(),
-            'members' => Volunteer::where('status', 'active')->get(),
+            'members' => $members,
+            'unapproved_volunteers' => $volunteers->where('status', 'unapproved'),
+            'active_volunteers' => $volunteers->where('status', 'active'),
+            'rejected_volunteers' => $volunteers->where('status', 'rejected'),
+            'banned_volunteers' => $volunteers->where('status', 'banned')
         ]);
     }
 

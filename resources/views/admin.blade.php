@@ -80,7 +80,7 @@
 
                     <div class="card-body">
 
-                        @if (sizeof($approved_volunteers) > 0)
+                        @if (sizeof($active_volunteers) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -92,7 +92,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($approved_volunteers as $volunteer)
+                                @foreach ($active_volunteers as $volunteer)
                                     <tr>
                                         <th scope="row">{{ $volunteer->id }}</th>
                                         <td>{{ $volunteer->first_name }}</td>
