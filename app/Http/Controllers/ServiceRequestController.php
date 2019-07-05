@@ -26,35 +26,35 @@ class ServiceRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->type == "admin") {
-            $rejected_service_requests = ServiceRequest::where('status', 'rejected')->get();
+            $rejectedServiceRequests = ServiceRequest::where('status', 'rejected')->get();
 
-            $unapproved_service_requests = ServiceRequest::where('status', 'unapproved')->get();
+            $unapprovedServiceRequests = ServiceRequest::where('status', 'unapproved')->get();
 
-            $past_service_requests = ServiceRequest::where('start_date', '<', date('Y-m-d'))
+            $pastServiceRequests = ServiceRequest::where('start_date', '<', date('Y-m-d'))
                 ->where('status', 'approved')->get();
 
-            $incoming_service_requests = ServiceRequest::where('start_date', '>=', date('Y-m-d'))
+            $incomingServiceRequests = ServiceRequest::where('start_date', '>=', date('Y-m-d'))
                 ->where('status', 'approved')->get();
         } else {
-            $rejected_service_requests = $request->user()->serviceRequests()->where('status', 'rejected')->get();
+            $rejectedServiceRequests = $request->user()->serviceRequests()->where('status', 'rejected')->get();
 
-            $unapproved_service_requests = $request->user()->serviceRequests()->where('status', 'unapproved')->get();
+            $unapprovedServiceRequests = $request->user()->serviceRequests()->where('status', 'unapproved')->get();
 
-            $past_service_requests = $request->user()->serviceRequests()
+            $pastServiceRequests = $request->user()->serviceRequests()
                 ->where('start_date', '<', date('Y-m-d'))
                 ->where('status', 'approved')->get();
 
-            $incoming_service_requests = $request->user()->serviceRequests()
+            $incomingServiceRequests = $request->user()->serviceRequests()
                 ->where('start_date', '>', date('Y-m-d'))
                 ->where('status', 'approved')->get();
         }
 
         return view('services.index', [
             'user' => $request->user(),
-            'incoming_service_requests' => $incoming_service_requests,
-            'past_service_requests' => $past_service_requests,
-            'rejected_service_requests' => $rejected_service_requests,
-            'unapproved_service_requests' => $unapproved_service_requests,
+            'incomingServiceRequests' => $incomingServiceRequests,
+            'pastServiceRequests' => $pastServiceRequests,
+            'rejectedServiceRequests' => $rejectedServiceRequests,
+            'unapprovedServiceRequests' => $unapprovedServiceRequests,
             'services' => Service::all(),
         ]);
     }
