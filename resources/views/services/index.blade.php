@@ -89,7 +89,7 @@
                 <div class="card card-more">
                     <div class="card-header">Unapproved Service Requests</div>
                     <div class="card-body">
-                        @if (sizeof($unapproved_service_requests) > 0)
+                        @if (sizeof($unapprovedServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -108,7 +108,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($unapproved_service_requests as $service_request)
+                                @foreach ($unapprovedServiceRequests as $service_request)
                                     <tr>
                                         <th scope="row">{{ $service_request->id }}</th>
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -159,7 +159,7 @@
                 <div class="card card-more">
                     <div class="card-header">Incoming Service Requests</div>
                     <div class="card-body">
-                        @if (sizeof($incoming_service_requests) > 0)
+                        @if (sizeof($incomingServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -178,7 +178,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($incoming_service_requests as $service_request)
+                                @foreach ($incomingServiceRequests as $service_request)
                                     <tr>
                                         <th scope="row">{{ $service_request->id }}</th>
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -208,7 +208,7 @@
                 <div class="card card-more">
                     <div class="card-header">Past Service Requests</div>
                     <div class="card-body">
-                        @if (sizeof($past_service_requests) > 0)
+                        @if (sizeof($pastServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -227,7 +227,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($past_service_requests as $service_request)
+                                @foreach ($pastServiceRequests as $service_request)
                                     <tr>
                                         <th scope="row">{{ $service_request->id }}</th>
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -257,7 +257,7 @@
                 <div class="card card-more">
                     <div class="card-header">Rejected Service Requests</div>
                     <div class="card-body">
-                        @if (sizeof($rejected_service_requests) > 0)
+                        @if (sizeof($rejectedServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -276,7 +276,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($rejected_service_requests as $service_request)
+                                @foreach ($rejectedServiceRequests as $service_request)
                                     <tr>
                                         <th scope="row">{{ $service_request->id }}</th>
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
