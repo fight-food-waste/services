@@ -15,7 +15,8 @@ class ExportController extends Controller
     }
 
     public function planning(Request $request) {
-        $volunteer_id = $request->user()->id;
-        return Excel::download(new PlanningExport($volunteer_id), 'planning.xlsx');
+        $volunteerId = $request->user()->id;
+
+        return Excel::download(new PlanningExport($volunteerId), 'planning.xlsx');
     }
 }

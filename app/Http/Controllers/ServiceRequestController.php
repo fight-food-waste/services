@@ -26,35 +26,39 @@ class ServiceRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->type == "admin") {
-            $rejected_service_requests = ServiceRequest::where('status', 'rejected')->get();
+            $serviceRequests = ServiceRequest::all();
 
-            $unapproved_service_requests = ServiceRequest::where('status', 'unapproved')->get();
+            $rejectedServiceRequests = $serviceRequests->where('status', 'rejected');
 
-            $past_service_requests = ServiceRequest::where('start_date', '<', date('Y-m-d'))
-                ->where('status', 'approved')->get();
+            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved');
 
-            $incoming_service_requests = ServiceRequest::where('start_date', '>=', date('Y-m-d'))
-                ->where('status', 'approved')->get();
+            $pastServiceRequests = $serviceRequests->where('start_date', '<', date('Y-m-d'))
+                ->where('status', 'approved');
+
+            $incomingServiceRequests = $serviceRequests->where('start_date', '>=', date('Y-m-d'))
+                ->where('status', 'approved');
         } else {
-            $rejected_service_requests = $request->user()->serviceRequests()->where('status', 'rejected')->get();
+            $serviceRequests = $request->user()->serviceRequests;
 
-            $unapproved_service_requests = $request->user()->serviceRequests()->where('status', 'unapproved')->get();
+            $rejectedServiceRequests = $serviceRequests->where('status', 'rejected');
 
-            $past_service_requests = $request->user()->serviceRequests()
+            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved');
+
+            $pastServiceRequests = $serviceRequests
                 ->where('start_date', '<', date('Y-m-d'))
-                ->where('status', 'approved')->get();
+                ->where('status', 'approved');
 
-            $incoming_service_requests = $request->user()->serviceRequests()
+            $incomingServiceRequests = $serviceRequests
                 ->where('start_date', '>', date('Y-m-d'))
-                ->where('status', 'approved')->get();
+                ->where('status', 'approved');
         }
 
         return view('services.index', [
             'user' => $request->user(),
-            'incoming_service_requests' => $incoming_service_requests,
-            'past_service_requests' => $past_service_requests,
-            'rejected_service_requests' => $rejected_service_requests,
-            'unapproved_service_requests' => $unapproved_service_requests,
+            'incomingServiceRequests' => $incomingServiceRequests,
+            'pastServiceRequests' => $pastServiceRequests,
+            'rejectedServiceRequests' => $rejectedServiceRequests,
+            'unapprovedServiceRequests' => $unapprovedServiceRequests,
             'services' => Service::all(),
         ]);
     }

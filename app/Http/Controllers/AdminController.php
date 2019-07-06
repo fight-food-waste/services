@@ -36,10 +36,10 @@ class AdminController extends Controller
         return view('admin', [
             'user' => $request->user(),
             'members' => $members,
-            'unapproved_volunteers' => $volunteers->where('status', 'unapproved'),
-            'active_volunteers' => $volunteers->where('status', 'active'),
-            'rejected_volunteers' => $volunteers->where('status', 'rejected'),
-            'banned_volunteers' => $volunteers->where('status', 'banned')
+            'unapprovedVolunteers' => $volunteers->where('status', 'unapproved'),
+            'activeVolunteers' => $volunteers->where('status', 'active'),
+            'rejectedVolunteers' => $volunteers->where('status', 'rejected'),
+            'bannedVolunteers' => $volunteers->where('status', 'banned')
         ]);
     }
 

@@ -33,8 +33,8 @@ class PlanningExport implements FromCollection, WithHeadings, WithMapping
             $service_request->getStartDay(),
             $service_request->getEndDay(),
             $service_request->hour_count,
-            $service_request->service()->first()->name,
-            $service_request->member()->first()->first_name . ' ' . $service_request->member()->first()->last_name,
+            $service_request->service()->value('name'),
+            $service_request->member()->value('first_name') . ' ' . $service_request->member()->value('last_name'),
         ];
     }
 
