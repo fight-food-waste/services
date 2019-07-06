@@ -114,14 +114,14 @@
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service()->first()->name }}</td>
+                                        <td>{{ $service_request->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer()->first()->first_name }}
-                                                {{ $service_request->volunteer()->first()->last_name }}</td>
+                                            <td>{{ $service_request->volunteer->first_name }}
+                                                {{ $service_request->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member()->first()->first_name }}
-                                                {{ $service_request->member()->first()->last_name }}</td>
+                                            <td>{{ $service_request->member->first_name }}
+                                                {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
                                             @if($service_request->status == "unapproved")
@@ -184,14 +184,14 @@
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service()->first()->name }}</td>
+                                        <td>{{ $service_request->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer()->first()->first_name }}
-                                                {{ $service_request->volunteer()->first()->last_name }}</td>
+                                            <td>{{ $service_request->volunteer->first_name }}
+                                                {{ $service_request->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member()->first()->first_name }}
-                                                {{ $service_request->member()->first()->last_name }}</td>
+                                            <td>{{ $service_request->member->first_name }}
+                                                {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
                                             {{ ucfirst($service_request->status)  }}
@@ -233,14 +233,14 @@
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service()->first()->name }}</td>
+                                        <td>{{ $service_request->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer()->first()->first_name }}
-                                                {{ $service_request->volunteer()->first()->last_name }}</td>
+                                            <td>{{ $service_request->volunteer->first_name }}
+                                                {{ $service_request->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member()->first()->first_name }}
-                                                {{ $service_request->member()->first()->last_name }}</td>
+                                            <td>{{ $service_request->member->first_name }}
+                                                {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
                                             {{ ucfirst($service_request->status)  }}
@@ -282,14 +282,14 @@
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service()->first()->name }}</td>
+                                        <td>{{ $service_request->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer()->first()->first_name }}
-                                                {{ $service_request->volunteer()->first()->last_name }}</td>
+                                            <td>{{ $service_request->volunteer->first_name }}
+                                                {{ $service_request->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member()->first()->first_name }}
-                                                {{ $service_request->member()->first()->last_name }}</td>
+                                            <td>{{ $service_request->member->first_name }}
+                                                {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
                                             {{ ucfirst($service_request->status)  }}
