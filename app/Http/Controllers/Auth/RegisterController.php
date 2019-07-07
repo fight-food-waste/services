@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Forms\MemberForm;
+use App\Forms\VolunteerForm;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMember;
-use App\Http\Requests\StoreVolunteer;
 use App\Member;
-use App\Service;
 use App\Volunteer;
+use Auth;
+use Hash;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class RegisterController extends Controller
 {
@@ -46,36 +48,89 @@ class RegisterController extends Controller
     }
 
     /**
-     * Show the application registration form.
-     *
-     * @param string $userType
-     * @return View
-     */
-    public function showRegistrationForm(string $userType)
-    {
-        return view('auth.register.' . $userType, ['services' => Service::all()]);
-    }
-
-    /**
      * Show the registration dispatcher (choose user type)
      *
      * @return View
      */
-    public function showRegistrationDispatcher()
+    public function chooseUserType()
     {
-        return view('auth.register.dispatch');
+        return view('register.dispatch');
+    }
+
+    /**
+     * Show Member registration form
+     *
+     * @param FormBuilder $formBuilder
+     * @return Factory|View
+     */
+    public function createMember(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(MemberForm::class, [
+            'method' => 'POST',
+            'url' => route('register.member.store')
+        ]);
+
+        return view('register.form', compact('form'));
+    }
+
+    /**
+     * Store Member if valid
+     *
+     * @param FormBuilder $formBuilder
+     * @return RedirectResponse
+     */
+    public function storeMember(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(MemberForm::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $user_attributes = $form->getFieldValues();
+
+        $user_attributes['password'] = Hash::make($user_attributes['password']);
+        $user_attributes['status'] = "active";
+
+        $member = Member::create($user_attributes);
+
+        Auth::login($member);
+
+        return redirect($this->redirectPath())->with('success', 'Registration successful!');
+    }
+
+    /**
+     * Show Volunteer registration form
+     *
+     * @param FormBuilder $formBuilder
+     * @return Factory|View
+     */
+    public function createVolunteer(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(VolunteerForm::class, [
+            'method' => 'POST',
+            'url' => route('register.volunteer.store')
+        ]);
+
+        return view('register.form', compact('form'));
     }
 
 
-    /** Create a new Volunteer instance after a valid registration.
-     * And redirect to home page
+    /**
+     * Store Volunteer if valid
      *
-     * @param StoreVolunteer $request
+     * @param FormBuilder $formBuilder
      * @return RedirectResponse
      */
-    public function storeVolunteer(StoreVolunteer $request)
+    public function storeVolunteer(FormBuilder $formBuilder)
     {
-        $user_attributes = $request->validated();
+        $form = $formBuilder->create(VolunteerForm::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $user_attributes = $form->getFieldValues();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
         $user_attributes['status'] = "unapproved";
@@ -86,27 +141,10 @@ class RegisterController extends Controller
         $application_file->storeAs('application_files', $filename);
         $user_attributes['application_filename'] = $filename;
 
-        Volunteer::create($user_attributes);
+        $volunteer = Volunteer::create($user_attributes);
 
-        return redirect($this->redirectPath())->with('success', 'User created successfully.');
-    }
+        Auth::login($volunteer);
 
-    /**
-     * Create a new Member instance after a valid registration.
-     * And redirect to home page
-     *
-     * @param StoreMember $request
-     * @return RedirectResponse
-     */
-    public function storeMember(StoreMember $request)
-    {
-        $user_attributes = $request->validated();
-
-        $user_attributes['password'] = Hash::make($user_attributes['password']);
-        $user_attributes['status'] = "active";
-
-        Member::create($user_attributes);
-
-        return redirect($this->redirectPath())->with('success', 'User created successfully.');
+        return redirect($this->redirectPath())->with('success', 'Registration successful!');
     }
 }
