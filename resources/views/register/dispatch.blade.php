@@ -9,12 +9,13 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                            <h2 class="text-center mb-4">Who are you?</h2>
+                        <h2 class="text-center mb-4">Who are you?</h2>
                         <div>
                             <ul>
                                 <li><a href="{{ url('register/member') }}">Member</a></li>
                                 <li><a href="{{ url('register/volunteer') }}">Volunteer</a></li>
                             </ul>
+                        </div>
                     </div>
                 </div>
             </div>

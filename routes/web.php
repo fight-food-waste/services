@@ -19,12 +19,11 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::post('register', 'Auth\RegisterController@register');
-Route::get('register', 'Auth\RegisterController@showRegistrationDispatcher')->name('register');
-Route::get('register/member', 'Auth\RegisterController@showRegistrationForm')->defaults('userType', 'member');
-Route::post('register/member', 'Auth\RegisterController@storeMember');
-Route::get('register/volunteer', 'Auth\RegisterController@showRegistrationForm')->defaults('userType', 'volunteer');
-Route::post('register/volunteer', 'Auth\RegisterController@storeVolunteer');
+Route::get('register', 'Auth\RegisterController@chooseUserType')->name('register');
+Route::get('register/member', 'Auth\RegisterController@createMember')->name('register.member.create');
+Route::post('register/member', 'Auth\RegisterController@storeMember')->name('register.member.store');
+Route::get('register/volunteer', 'Auth\RegisterController@createVolunteer')->name('register.volunteer.create');
+Route::post('register/volunteer', 'Auth\RegisterController@storeVolunteer')->name('register.volunteer.store');
 
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('profile', 'ProfileController@index')->name('profile');
