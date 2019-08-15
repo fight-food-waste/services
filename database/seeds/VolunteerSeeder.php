@@ -15,7 +15,7 @@ class VolunteerSeeder extends Seeder
         Volunteer::create([
             'first_name' => 'Thomas',
             'last_name' => 'Martin',
-            'email' => 'thomas@martin.fr',
+            'email' => 'volunteer1@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status' => 'active',
             'service_id' => 1,
@@ -27,7 +27,7 @@ class VolunteerSeeder extends Seeder
         Volunteer::create([
             'first_name' => 'Arthur',
             'last_name' => 'Papaye',
-            'email' => 'arthur@papaye.fr',
+            'email' => 'volunteer2@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status' => 'active',
             'service_id' => 2,
