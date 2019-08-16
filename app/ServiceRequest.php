@@ -77,4 +77,23 @@ class ServiceRequest extends Model
         }
         return date("Y-m-d", strtotime($this->end_date));
     }
+
+    /**
+     * Get a human-readable name for all possible statuses
+     *
+     * @return string
+     */
+    public function getStatusName(): string
+    {
+        switch ($this->status) {
+            case -1:
+                return "Cancelled";
+            case 0:
+                return "Not assigned";
+            case 1:
+                return "Assigned";
+            default:
+                return "Unknown";
+        }
+    }
 }

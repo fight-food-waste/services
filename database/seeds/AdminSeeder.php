@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'Dupont',
             'email' => 'admin1@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'status' => 'active',
+            'status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

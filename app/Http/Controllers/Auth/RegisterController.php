@@ -90,7 +90,7 @@ class RegisterController extends Controller
         $user_attributes = $form->getFieldValues();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
-        $user_attributes['status'] = "active";
+        $user_attributes['status'] = 1;
 
         $member = Member::create($user_attributes);
 
@@ -133,7 +133,7 @@ class RegisterController extends Controller
         $user_attributes = $form->getFieldValues();
 
         $user_attributes['password'] = Hash::make($user_attributes['password']);
-        $user_attributes['status'] = "unapproved";
+        $user_attributes['status'] = 0;
 
         // Upload application file
         $application_file = $user_attributes['application_file'];

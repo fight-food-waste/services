@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('type');
             $table->date('membership_end_date')->nullable();
             $table->string('application_filename')->nullable();
-            $table->string('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

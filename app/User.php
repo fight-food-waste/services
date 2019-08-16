@@ -61,4 +61,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get a human-readable name for all possible statuses
+     *
+     * @return string
+     */
+    public function getStatusName(): string
+    {
+        switch ($this->status) {
+            case -1:
+                return "Rejected";
+            case 0:
+                return "Waiting approval";
+            case 1:
+                return "Approved";
+            default:
+                return "Unknown";
+        }
+    }
 }

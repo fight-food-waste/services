@@ -36,10 +36,9 @@ class AdminController extends Controller
         return view('admin', [
             'user' => $request->user(),
             'members' => $members,
-            'unapprovedVolunteers' => $volunteers->where('status', 'unapproved'),
-            'activeVolunteers' => $volunteers->where('status', 'active'),
-            'rejectedVolunteers' => $volunteers->where('status', 'rejected'),
-            'bannedVolunteers' => $volunteers->where('status', 'banned')
+            'unapprovedVolunteers' => $volunteers->where('status', 0),
+            'activeVolunteers' => $volunteers->where('status', 1),
+            'rejectedVolunteers' => $volunteers->where('status', -1),
         ]);
     }
 
@@ -53,7 +52,7 @@ class AdminController extends Controller
     {
         $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
-        $volunteer->status = "active";
+        $volunteer->status = 1;
         $volunteer->save();
 
         return redirect('/admin')->with('success', 'Volunteer ' . $request->route('id') . ' has been approved.');
@@ -69,7 +68,7 @@ class AdminController extends Controller
     {
         $volunteer = Volunteer::where('id', $request->route('id'))->first();
 
-        $volunteer->status = "rejected";
+        $volunteer->status = -1;
         $volunteer->save();
 
         return redirect('/admin')->with('success', 'Volunteer ' . $request->route('id') . ' has been rejected.');

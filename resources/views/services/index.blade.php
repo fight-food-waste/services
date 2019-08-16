@@ -19,7 +19,7 @@
                             @if($user->hasValidMembership())
 
                                 <form method="POST" enctype="multipart/form-data"
-                                      action="{{ route('services.store') }}">
+                                      action="{{ route('service_requests.store') }}">
                                     @csrf
 
                                     <div class="form-group row">
@@ -90,9 +90,9 @@
 
                 @if($user->type == 'member')
                     <div class="card card-more">
-                        <div class="card-header">Unapproved Service Requests</div>
+                        <div class="card-header">Unassigned Service Requests</div>
                         <div class="card-body">
-                            @if (sizeof($unapprovedServiceRequests) > 0)
+                            @if (sizeof($unassignedServiceRequests) > 0)
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -105,7 +105,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($unapprovedServiceRequests as $service_request)
+                                    @foreach ($unassignedServiceRequests as $service_request)
                                         <tr>
                                             <th scope="row">{{ $service_request->id }}</th>
                                             <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -114,14 +114,14 @@
                                             <td>{{ $service_request->service->name }}</td>
 
                                             <td>
-                                                @if($service_request->status == "unapproved")
-                                                    <a href="/services/request/{{ $service_request->id }}/reject">
+                                                @if($service_request->status == 0)
+                                                    <a href="{{ route('service_requests.cancel', $service_request->id) }}">
                                                         <button type="button" class="btn btn-sm btn-danger">
                                                             <i class="fas fa-times"></i>
                                                         </button>
                                                     </a>
                                                 @else
-                                                    {{ ucfirst($service_request->status)  }}
+                                                    {{ $serviceRequest->getStatusName() }}
                                                 @endif
                                             </td>
                                         </tr>
@@ -129,7 +129,7 @@
                                     </tbody>
                                 </table>
                             @else
-                                There are no unapproved requests
+                                There are no unassigned requests
                             @endif
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="card card-more">
                         <div class="card-header">Available Service Requests</div>
                         <div class="card-body">
-                            @if (sizeof($availableServiceRequests) > 0)
+                            @if (sizeof($unassignedServiceRequests) > 0)
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -152,7 +152,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($availableServiceRequests as $service_request)
+                                    @foreach ($unassignedServiceRequests as $service_request)
                                         <tr>
                                             <th scope="row">{{ $service_request->id }}</th>
                                             <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -161,14 +161,14 @@
                                             <td>{{ $service_request->service->name }}</td>
 
                                             <td>
-                                                @if($service_request->status == "unapproved")
-                                                    <a href="{{ route('services.pick_up', $service_request->id) }}">
+                                                @if($service_request->status == 0)
+                                                    <a href="{{ route('service_requests.pick_up', $service_request->id) }}">
                                                         <button type="button" class="btn btn-sm btn-primary">
                                                             <i class="fas fa-cart-plus"></i>
                                                         </button>
                                                     </a>
                                                 @else
-                                                    {{ ucfirst($service_request->status)  }}
+                                                    {{ $service_request->getStatusName() }}
                                                 @endif
                                             </td>
                                         </tr>
@@ -220,7 +220,7 @@
                                                 {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
-                                            {{ ucfirst($service_request->status)  }}
+                                            {{ $service_request->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -269,7 +269,7 @@
                                                 {{ $service_request->member->last_name }}</td>
                                         @endif
                                         <td>
-                                            {{ ucfirst($service_request->status)  }}
+                                            {{ $service_request->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -283,7 +283,7 @@
                 <div class="card card-more">
                     <div class="card-header">Rejected Service Requests</div>
                     <div class="card-body">
-                        @if (sizeof($rejectedServiceRequests) > 0)
+                        @if (sizeof($cancelledServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -296,7 +296,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($rejectedServiceRequests as $service_request)
+                                @foreach ($cancelledServiceRequests as $service_request)
                                     <tr>
                                         <th scope="row">{{ $service_request->id }}</th>
                                         <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
@@ -305,7 +305,7 @@
                                         <td>{{ $service_request->service->name }}</td>
 
                                         <td>
-                                            {{ ucfirst($service_request->status)  }}
+                                            {{ $service_request->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach

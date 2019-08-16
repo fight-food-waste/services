@@ -24,50 +24,97 @@ class ServiceRequestController extends Controller
 
     public function index(Request $request)
     {
-        $availableServiceRequests = [];
+        $unassignedServiceRequests = [];
+        $user = $request->user();
+        $services = Service::all();
 
-        if ($request->user()->type == "admin") {
+        if ($user->type == "admin") {
             $serviceRequests = ServiceRequest::all();
 
-            $rejectedServiceRequests = $serviceRequests->where('status', 'rejected');
+            $cancelledServiceRequests = $serviceRequests->where('status', -1);
 
-            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved');
+            $unassignedServiceRequests = $serviceRequests->where('status', 0);
 
             $pastServiceRequests = $serviceRequests->where('start_date', '<', date('Y-m-d'))
-                ->where('status', 'approved');
+                ->where('status', 1);
 
             $incomingServiceRequests = $serviceRequests->where('start_date', '>=', date('Y-m-d'))
-                ->where('status', 'approved');
+                ->where('status', 1);
         } else {
-            $serviceRequests = $request->user()->serviceRequests;
+            $serviceRequests = $user->serviceRequests;
 
-            $rejectedServiceRequests = $serviceRequests->where('status', 'rejected');
+            $cancelledServiceRequests = $serviceRequests->where('status', -1);
 
-            $unapprovedServiceRequests = $serviceRequests->where('status', 'unapproved');
+            $unassignedServiceRequests = $serviceRequests->where('status', 0);
 
             $pastServiceRequests = $serviceRequests
                 ->where('start_date', '<', date('Y-m-d'))
-                ->where('status', 'approved');
+                ->where('status', 1);
 
             $incomingServiceRequests = $serviceRequests
                 ->where('start_date', '>', date('Y-m-d'))
-                ->where('status', 'approved');
+                ->where('status', 1);
 
-            if ($request->user()->type == "volunteer") {
-                $availableServiceRequests = ServiceRequest::where('service_id', $request->user()->service_id)
-                    ->where('status', 'unapproved')->get();
+            if ($user->type == "volunteer") {
+                $unassignedServiceRequests = ServiceRequest::where('service_id', $user->service_id)
+                    ->where('status', 0)->get();
             }
         }
 
-        return view('services.index', [
-            'user' => $request->user(),
-            'incomingServiceRequests' => $incomingServiceRequests,
-            'pastServiceRequests' => $pastServiceRequests,
-            'rejectedServiceRequests' => $rejectedServiceRequests,
-            'unapprovedServiceRequests' => $unapprovedServiceRequests,
-            'availableServiceRequests' => $availableServiceRequests,
-            'services' => Service::all(),
-        ]);
+        return view('services.index',
+            compact(
+                'user',
+                'incomingServiceRequests',
+                'pastServiceRequests',
+                'cancelledServiceRequests',
+                'unassignedServiceRequests',
+                'services'
+            )
+        );
+    }
+
+    /**
+     * Check for conflicting ServiceRequest and get all available volunteers for the second form
+     *
+     * @param PrepareServiceRequest $request
+     * @return Factory|View
+     */
+    public function store(PrepareServiceRequest $request)
+    {
+        abort_if(! $request->user()->hasValidMembership(), 403);
+
+        $serviceRequestAttributes = $request->validated();
+
+        $serviceRequestAttributes['member_id'] = $request->user()->id;
+
+        ServiceRequest::create($serviceRequestAttributes);
+
+        return redirect(route('service_requests.index'))->with('success', 'Service request completed successfully.');
+    }
+
+    public function cancel(ServiceRequest $serviceRequest, Request $request)
+    {
+        if ($serviceRequest->member_id != $request->user()->id && $request->user()->type != "admin") {
+            abort(403);
+        }
+
+        $serviceRequest->status = -1;
+        $serviceRequest->save();
+
+        return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
+    }
+
+    public function pickUp(ServiceRequest $serviceRequest, Request $request)
+    {
+        if ($request->user()->type != "volunteer") {
+            abort(403);
+        }
+
+        $serviceRequest->status = 1;
+        $serviceRequest->volunteer_id = $request->user()->id;
+        $serviceRequest->save();
+
+        return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
     }
 
     /**
@@ -80,7 +127,7 @@ class ServiceRequestController extends Controller
     {
         // Get all ServiceRequest for the same Service that can potentially be conflicting for the time range
         $serviceRequestsForSameService = ServiceRequest::where('service_id', $serviceRequest->service_id)
-            ->where('status', 'approved')
+            ->where('status', 1)
             ->get();
 
         $conflictingServiceRequests = [];
@@ -100,54 +147,9 @@ class ServiceRequestController extends Controller
         // Get all volunteers which don't have a ServiceRequest conflicting with the new one
         $availableVolunteers = Volunteer::where('service_id', $serviceRequest->service_id)
             ->whereNotIn('id', $conflictingServiceRequests)
-            ->where('status', 'active')
+            ->where('status', 1)
             ->get();
 
         return $availableVolunteers;
-    }
-
-    /**
-     * Check for conflicting ServiceRequest and get all available volunteers for the second form
-     *
-     * @param PrepareServiceRequest $request
-     * @return Factory|View
-     */
-    public function store(PrepareServiceRequest $request)
-    {
-        abort_if(! $request->user()->hasValidMembership(), 403);
-
-        $serviceRequestAttributes = $request->validated();
-
-        $serviceRequestAttributes['member_id'] = $request->user()->id;
-        $serviceRequestAttributes['status'] = 'unapproved';
-
-        ServiceRequest::create($serviceRequestAttributes);
-
-        return redirect('services')->with('success', 'Service request completed successfully.');
-    }
-
-    public function reject(ServiceRequest $serviceRequest, Request $request)
-    {
-        if ($serviceRequest->member_id != $request->user()->id && $request->user()->type != "admin") {
-            abort(403);
-        }
-
-        $serviceRequest->status = "rejected";
-        $serviceRequest->save();
-
-        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
-    }
-
-    public function pickUp(ServiceRequest $serviceRequest, Request $request)
-    {
-        if ($request->user()->type != "volunteer") {
-            abort(403);
-        }
-
-        $serviceRequest->status = "approved";
-        $serviceRequest->volunteer_id = $request->user()->id;
-        $serviceRequest->save();
-
-        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
     }
 }
