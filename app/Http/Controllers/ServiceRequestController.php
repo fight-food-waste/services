@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PrepareServiceRequest;
-use App\Http\Requests\StoreServiceRequest;
 use App\Service;
 use App\ServiceRequest;
 use App\Volunteer;
@@ -25,6 +24,8 @@ class ServiceRequestController extends Controller
 
     public function index(Request $request)
     {
+        $availableServiceRequests = [];
+
         if ($request->user()->type == "admin") {
             $serviceRequests = ServiceRequest::all();
 
@@ -51,6 +52,11 @@ class ServiceRequestController extends Controller
             $incomingServiceRequests = $serviceRequests
                 ->where('start_date', '>', date('Y-m-d'))
                 ->where('status', 'approved');
+
+            if ($request->user()->type == "volunteer") {
+                $availableServiceRequests = ServiceRequest::where('service_id', $request->user()->service_id)
+                    ->where('status', 'unapproved')->get();
+            }
         }
 
         return view('services.index', [
@@ -59,6 +65,7 @@ class ServiceRequestController extends Controller
             'pastServiceRequests' => $pastServiceRequests,
             'rejectedServiceRequests' => $rejectedServiceRequests,
             'unapprovedServiceRequests' => $unapprovedServiceRequests,
+            'availableServiceRequests' => $availableServiceRequests,
             'services' => Service::all(),
         ]);
     }
@@ -105,29 +112,7 @@ class ServiceRequestController extends Controller
      * @param PrepareServiceRequest $request
      * @return Factory|View
      */
-    public function prepareNew(PrepareServiceRequest $request)
-    {
-        abort_if(! $request->user()->hasValidMembership(), 403);
-
-        $serviceRequestAttributes = $request->validated();
-
-        // Create new object to access getEndDate(), it will be saved after the next form
-        $serviceRequest = new ServiceRequest($serviceRequestAttributes);
-
-        // Get Service info related to the ServiceRequest
-        $requestedService = Service::where('id', $serviceRequest->service_id)->first();
-
-        $availableVolunteers = $this->getAvailableVolunteers($serviceRequest);
-
-        return view('services.new', [
-            'user' => $request->user(),
-            'service_request' => $serviceRequest,
-            'requested_service' => $requestedService,
-            'available_volunteers' => $availableVolunteers,
-        ]);
-    }
-
-    public function confirmNew(StoreServiceRequest $request)
+    public function store(PrepareServiceRequest $request)
     {
         abort_if(! $request->user()->hasValidMembership(), 403);
 
@@ -141,25 +126,9 @@ class ServiceRequestController extends Controller
         return redirect('services')->with('success', 'Service request completed successfully.');
     }
 
-    public function approve(Request $request)
+    public function reject(ServiceRequest $serviceRequest, Request $request)
     {
-        $serviceRequest = ServiceRequest::where('id', $request->route('id'))->first();
-
-        if ($serviceRequest->volunteer_id != $request->user()->id) {
-            abort(403);
-        }
-
-        $serviceRequest->status = "approved";
-        $serviceRequest->save();
-
-        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been approved.');
-    }
-
-    public function reject(Request $request)
-    {
-        $serviceRequest = ServiceRequest::where('id', $request->route('id'))->first();
-
-        if ($serviceRequest->volunteer_id != $request->user()->id && $request->user()->type != "admin") {
+        if ($serviceRequest->member_id != $request->user()->id && $request->user()->type != "admin") {
             abort(403);
         }
 
@@ -169,4 +138,16 @@ class ServiceRequestController extends Controller
         return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
     }
 
+    public function pickUp(ServiceRequest $serviceRequest, Request $request)
+    {
+        if ($request->user()->type != "volunteer") {
+            abort(403);
+        }
+
+        $serviceRequest->status = "approved";
+        $serviceRequest->volunteer_id = $request->user()->id;
+        $serviceRequest->save();
+
+        return redirect('/services')->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
+    }
 }

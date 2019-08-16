@@ -5,6 +5,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 @if($user->type == 'member')
                     <div class="card">
                         <div class="card-header">Make a new service request</div>
@@ -12,7 +19,7 @@
                             @if($user->hasValidMembership())
 
                                 <form method="POST" enctype="multipart/form-data"
-                                      action="{{ url('services/new/prepare') }}">
+                                      action="{{ route('services.store') }}">
                                     @csrf
 
                                     <div class="form-group row">
@@ -81,81 +88,100 @@
 
                 @endif
 
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
+                @if($user->type == 'member')
+                    <div class="card card-more">
+                        <div class="card-header">Unapproved Service Requests</div>
+                        <div class="card-body">
+                            @if (sizeof($unapprovedServiceRequests) > 0)
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Day</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Hours</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Cancel</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($unapprovedServiceRequests as $service_request)
+                                        <tr>
+                                            <th scope="row">{{ $service_request->id }}</th>
+                                            <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
+                                            <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
+                                            <td>{{ $service_request->hour_count }}</td>
+                                            <td>{{ $service_request->service->name }}</td>
+
+                                            <td>
+                                                @if($service_request->status == "unapproved")
+                                                    <a href="/services/request/{{ $service_request->id }}/reject">
+                                                        <button type="button" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    {{ ucfirst($service_request->status)  }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                There are no unapproved requests
+                            @endif
+                        </div>
                     </div>
                 @endif
-                <div class="card card-more">
-                    <div class="card-header">Unapproved Service Requests</div>
-                    <div class="card-body">
-                        @if (sizeof($unapprovedServiceRequests) > 0)
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Hours</th>
-                                    <th scope="col">Service</th>
-                                    @if ($user->type == 'member' || $user->type == 'admin')
-                                        <th scope="col">Volunteer</th>
-                                    @endif
-                                    @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                        <th scope="col">Member</th>
-                                    @endif
-                                    <th scope="col">Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($unapprovedServiceRequests as $service_request)
+
+                @if($user->type == 'volunteer')
+                    <div class="card card-more">
+                        <div class="card-header">Available Service Requests</div>
+                        <div class="card-body">
+                            @if (sizeof($availableServiceRequests) > 0)
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <th scope="row">{{ $service_request->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service->name }}</td>
-                                        @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer->first_name }}
-                                                {{ $service_request->volunteer->last_name }}</td>
-                                        @endif
-                                        @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member->first_name }}
-                                                {{ $service_request->member->last_name }}</td>
-                                        @endif
-                                        <td>
-                                            @if($service_request->status == "unapproved")
-                                                @if($user->type == "volunteer")
-                                                    <a href="/services/request/{{ $service_request->id }}/approve">
-                                                        <button type="button" class="btn btn-sm btn-success">
-                                                            <i class="fas fa-check"></i>
-                                                        </button>
-                                                    </a>
-                                                    <a href="/services/request/{{ $service_request->id }}/reject">
-                                                        <button type="button" class="btn btn-sm btn-danger">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
-                                                    </a>
-                                                @elseif ($user->type == "admin")
-                                                    <a href="/services/request/{{ $service_request->id }}/reject">
-                                                        <button type="button" class="btn btn-sm btn-danger">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                {{ ucfirst($service_request->status)  }}
-                                            @endif
-                                        </td>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Day</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Hours</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Pick up</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            There are no unapproved requests
-                        @endif
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($availableServiceRequests as $service_request)
+                                        <tr>
+                                            <th scope="row">{{ $service_request->id }}</th>
+                                            <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
+                                            <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
+                                            <td>{{ $service_request->hour_count }}</td>
+                                            <td>{{ $service_request->service->name }}</td>
+
+                                            <td>
+                                                @if($service_request->status == "unapproved")
+                                                    <a href="{{ route('services.pick_up', $service_request->id) }}">
+                                                        <button type="button" class="btn btn-sm btn-primary">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    {{ ucfirst($service_request->status)  }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                There are no available requests
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
+
                 <div class="card card-more">
                     <div class="card-header">Incoming Service Requests</div>
                     <div class="card-body">
@@ -266,12 +292,6 @@
                                     <th scope="col">Time</th>
                                     <th scope="col">Hours</th>
                                     <th scope="col">Service</th>
-                                    @if ($user->type == 'member' || $user->type == 'admin')
-                                        <th scope="col">Volunteer</th>
-                                    @endif
-                                    @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                        <th scope="col">Member</th>
-                                    @endif
                                     <th scope="col">Status</th>
                                 </tr>
                                 </thead>
@@ -283,14 +303,7 @@
                                         <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
                                         <td>{{ $service_request->hour_count }}</td>
                                         <td>{{ $service_request->service->name }}</td>
-                                        @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer->first_name }}
-                                                {{ $service_request->volunteer->last_name }}</td>
-                                        @endif
-                                        @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member->first_name }}
-                                                {{ $service_request->member->last_name }}</td>
-                                        @endif
+
                                         <td>
                                             {{ ucfirst($service_request->status)  }}
                                         </td>
