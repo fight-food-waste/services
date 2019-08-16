@@ -29,7 +29,7 @@
 
                     <div class="card-body">
 
-                        @if (sizeof($unapproved_volunteers) > 0)
+                        @if (sizeof($unapprovedVolunteers) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -41,7 +41,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($unapproved_volunteers as $volunteer)
+                                @foreach ($unapprovedVolunteers as $volunteer)
                                     <tr>
                                         <th scope="row">{{ $volunteer->id }}</th>
                                         <td>{{ $volunteer->first_name }}</td>
@@ -80,7 +80,7 @@
 
                     <div class="card-body">
 
-                        @if (sizeof($active_volunteers) > 0)
+                        @if (sizeof($activeVolunteers) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -92,7 +92,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($active_volunteers as $volunteer)
+                                @foreach ($activeVolunteers as $volunteer)
                                     <tr>
                                         <th scope="row">{{ $volunteer->id }}</th>
                                         <td>{{ $volunteer->first_name }}</td>
@@ -126,7 +126,7 @@
 
                     <div class="card-body">
 
-                        @if (sizeof($rejected_volunteers) > 0)
+                        @if (sizeof($rejectedVolunteers) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -138,7 +138,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($rejected_volunteers as $volunteer)
+                                @foreach ($rejectedVolunteers as $volunteer)
                                     <tr>
                                         <th scope="row">{{ $volunteer->id }}</th>
                                         <td>{{ $volunteer->first_name }}</td>

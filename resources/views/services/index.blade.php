@@ -105,17 +105,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($unassignedServiceRequests as $service_request)
+                                    @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
-                                            <th scope="row">{{ $service_request->id }}</th>
-                                            <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                            <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                            <td>{{ $service_request->hour_count }}</td>
-                                            <td>{{ $service_request->service->name }}</td>
+                                            <th scope="row">{{ $serviceRequest->id }}</th>
+                                            <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
+                                            <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
+                                            <td>{{ $serviceRequest->hour_count }}</td>
+                                            <td>{{ $serviceRequest->service->name }}</td>
 
                                             <td>
-                                                @if($service_request->status == 0)
-                                                    <a href="{{ route('service_requests.cancel', $service_request->id) }}">
+                                                @if($serviceRequest->status == 0)
+                                                    <a href="{{ route('service_requests.cancel', $serviceRequest->id) }}">
                                                         <button type="button" class="btn btn-sm btn-danger">
                                                             <i class="fas fa-times"></i>
                                                         </button>
@@ -152,23 +152,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($unassignedServiceRequests as $service_request)
+                                    @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
-                                            <th scope="row">{{ $service_request->id }}</th>
-                                            <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                            <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                            <td>{{ $service_request->hour_count }}</td>
-                                            <td>{{ $service_request->service->name }}</td>
+                                            <th scope="row">{{ $serviceRequest->id }}</th>
+                                            <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
+                                            <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
+                                            <td>{{ $serviceRequest->hour_count }}</td>
+                                            <td>{{ $serviceRequest->service->name }}</td>
 
                                             <td>
-                                                @if($service_request->status == 0)
-                                                    <a href="{{ route('service_requests.pick_up', $service_request->id) }}">
+                                                @if($serviceRequest->status == 0)
+                                                    <a href="{{ route('service_requests.pick_up', $serviceRequest->id) }}">
                                                         <button type="button" class="btn btn-sm btn-primary">
                                                             <i class="fas fa-cart-plus"></i>
                                                         </button>
                                                     </a>
                                                 @else
-                                                    {{ $service_request->getStatusName() }}
+                                                    {{ $serviceRequest->getStatusName() }}
                                                 @endif
                                             </td>
                                         </tr>
@@ -204,23 +204,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($incomingServiceRequests as $service_request)
+                                @foreach ($incomingServiceRequests as $serviceRequest)
                                     <tr>
-                                        <th scope="row">{{ $service_request->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service->name }}</td>
+                                        <th scope="row">{{ $serviceRequest->id }}</th>
+                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer->first_name }}
-                                                {{ $service_request->volunteer->last_name }}</td>
+                                            <td>{{ $serviceRequest->volunteer->first_name }}
+                                                {{ $serviceRequest->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member->first_name }}
-                                                {{ $service_request->member->last_name }}</td>
+                                            <td>{{ $serviceRequest->member->first_name }}
+                                                {{ $serviceRequest->member->last_name }}</td>
                                         @endif
                                         <td>
-                                            {{ $service_request->getStatusName() }}
+                                            {{ $serviceRequest->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -253,23 +253,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($pastServiceRequests as $service_request)
+                                @foreach ($pastServiceRequests as $serviceRequest)
                                     <tr>
-                                        <th scope="row">{{ $service_request->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service->name }}</td>
+                                        <th scope="row">{{ $serviceRequest->id }}</th>
+                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
-                                            <td>{{ $service_request->volunteer->first_name }}
-                                                {{ $service_request->volunteer->last_name }}</td>
+                                            <td>{{ $serviceRequest->volunteer->first_name }}
+                                                {{ $serviceRequest->volunteer->last_name }}</td>
                                         @endif
                                         @if ($user->type == 'volunteer' || $user->type == 'admin')
-                                            <td>{{ $service_request->member->first_name }}
-                                                {{ $service_request->member->last_name }}</td>
+                                            <td>{{ $serviceRequest->member->first_name }}
+                                                {{ $serviceRequest->member->last_name }}</td>
                                         @endif
                                         <td>
-                                            {{ $service_request->getStatusName() }}
+                                            {{ $serviceRequest->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -296,16 +296,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($cancelledServiceRequests as $service_request)
+                                @foreach ($cancelledServiceRequests as $serviceRequest)
                                     <tr>
-                                        <th scope="row">{{ $service_request->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($service_request->start_date)) }}</td>
-                                        <td>{{ $service_request->hour_count }}</td>
-                                        <td>{{ $service_request->service->name }}</td>
+                                        <th scope="row">{{ $serviceRequest->id }}</th>
+                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
+                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->service->name }}</td>
 
                                         <td>
-                                            {{ $service_request->getStatusName() }}
+                                            {{ $serviceRequest->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
