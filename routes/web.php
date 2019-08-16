@@ -36,9 +36,9 @@ Route::get('admin/volunteer/{id}/approve', 'AdminController@approveVolunteer')->
 Route::get('admin/volunteer/{id}/reject', 'AdminController@rejectVolunteer')->where('id', '[0-9]+');
 Route::get('admin/application_files/{id}.pdf', 'AdminController@downloadVolunteerApplication')->where('id', '^[a-zA-Z0-9_]*$');
 
-Route::get('services', 'ServiceRequestController@index')->name('services.index');
-Route::post('services', 'ServiceRequestController@store')->name('services.store');
-Route::get('services/request/{service_request}/reject', 'ServiceRequestController@reject')->where('service_request', '[0-9]+');
-Route::get('services/request/{service_request}/pickup', 'ServiceRequestController@pickUp')->name('services.pick_up');
+Route::get('services-requests', 'ServiceRequestController@index')->name('service_requests.index');
+Route::post('services-requests', 'ServiceRequestController@store')->name('service_requests.store');
+Route::get('services-requests/{service_request}/cancel', 'ServiceRequestController@cancel')->where('service_request', '[0-9]+')->name('service_requests.cancel');
+Route::get('services-requests/{service_request}/pickup', 'ServiceRequestController@pickUp')->where('service_request', '[0-9]+')->name('service_requests.pick_up');
 
 Route::get('planning/export', 'ExportController@planning')->name('planning.export');

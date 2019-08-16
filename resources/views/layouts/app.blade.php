@@ -68,7 +68,7 @@
                                     </a>
                                 @endif
 
-                                <a class="dropdown-item" href="{{ route('services.index') }}">
+                                <a class="dropdown-item" href="{{ route('service_requests.index') }}">
                                     {{ __('Services') }}
                                 </a>
 
