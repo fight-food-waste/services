@@ -27,6 +27,7 @@ class PrepareServiceRequest extends FormRequest
             'service_id' => ['required', 'integer', 'exists:services,id'],
             'start_date' => ['required', 'date', 'after:today'],
             'hour_count' => ['required', 'integer', 'min:1'],
+            'description' => ['required', 'string'],
         ];
     }
 }

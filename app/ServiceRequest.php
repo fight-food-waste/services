@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceRequest extends Model
 {
     protected $fillable = [
-        'start_date', 'status', 'hour_count', 'service_id', 'member_id', 'volunteer_id'
+        'start_date', 'status', 'hour_count', 'service_id', 'member_id', 'volunteer_id', 'description',
     ];
 
     public function member()

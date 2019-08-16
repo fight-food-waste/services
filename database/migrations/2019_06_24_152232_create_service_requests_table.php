@@ -22,6 +22,7 @@ class CreateServiceRequestsTable extends Migration
             $table->bigInteger('service_id')->unsigned();
             $table->bigInteger('member_id')->unsigned();
             $table->bigInteger('volunteer_id')->unsigned()->nullable();
+            $table->text('description');
         });
     }
 

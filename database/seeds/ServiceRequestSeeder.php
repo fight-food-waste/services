@@ -19,6 +19,7 @@ class ServiceRequestSeeder extends Seeder
             'member_id' => 2,
             'volunteer_id' => 4,
             'status' => 0,
+            'description' => 'About my service request...',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -30,6 +31,7 @@ class ServiceRequestSeeder extends Seeder
             'member_id' => 3,
             'volunteer_id' => 5,
             'status' => 0,
+            'description' => 'About my service request...',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
