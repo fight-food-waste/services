@@ -143,7 +143,7 @@ class RegisterController extends Controller
 
         $volunteer = Volunteer::create($user_attributes);
 
-        $volunteer->services()->attach($user_attributes['service']);
+        $volunteer->services()->attach($user_attributes['services']);
 
         Auth::login($volunteer);
 

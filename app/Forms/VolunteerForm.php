@@ -26,7 +26,7 @@ class VolunteerForm extends Form
                 'rules' => 'required|string|min:8|confirmed'
             ])
             ->add('password_confirmation', Field::PASSWORD)
-            ->add('service', Field::SELECT, [
+            ->add('services', Field::SELECT, [
                 'rules' => 'required|array|min:1',
                 'choices' => $services,
                 'attr' => [
