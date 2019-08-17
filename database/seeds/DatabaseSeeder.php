@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             MemberSeeder::class,
             VolunteerSeeder::class,
-            ServiceRequestSeeder::class
+            ServiceRequestSeeder::class,
+            TimeSlotSeeder::class,
         ]);
     }
 }
