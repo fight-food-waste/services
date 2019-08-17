@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\ServiceRequest
  *
- * @property string start_date
- * @property string end_date
- * @property string status
- * @property int hour_count
- * @property int service_id
- * @property int member_id
- * @property int volunteer_id
- * @property-read Member $member
- * @property-read Service $service
+ * @property string         start_date
+ * @property string         end_date
+ * @property string         status
+ * @property int            hour_count
+ * @property int            service_id
+ * @property int            member_id
+ * @property int            volunteer_id
+ * @property-read Member    $member
+ * @property-read Service   $service
  * @property-read Volunteer $volunteer
  * @method static Builder|ServiceRequest newModelQuery()
  * @method static Builder|ServiceRequest newQuery()
@@ -27,7 +27,11 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceRequest extends Model
 {
     protected $fillable = [
-        'start_date', 'status', 'hour_count', 'service_id', 'member_id', 'volunteer_id', 'description',
+        'status',
+        'service_id',
+        'member_id',
+        'volunteer_id',
+        'description',
     ];
 
     public function member()
@@ -45,19 +49,25 @@ class ServiceRequest extends Model
         return $this->belongsTo('App\Service');
     }
 
+    public function timeSlot()
+    {
+        return $this->hasOne(ServiceRequestTimeSlot::class);
+    }
+
+    public function getEndDate()
+    {
+        if (! isset($this->end_date)) {
+            $this->calculateEndDate();
+        }
+
+        return $this->end_date;
+    }
+
     private function calculateEndDate()
     {
         $startDateStr = strtotime($this->start_date);
         $endDateStr = strtotime(sprintf("+%d hours", $this->hour_count), $startDateStr);
         $this->end_date = date("Y-m-d H:i:s", $endDateStr);
-    }
-
-    public function getEndDate()
-    {
-        if (!isset($this->end_date)) {
-            $this->calculateEndDate();
-        }
-        return $this->end_date;
     }
 
     public function getStartDate()
@@ -72,9 +82,10 @@ class ServiceRequest extends Model
 
     public function getEndDay()
     {
-        if (!isset($this->end_date)) {
+        if (! isset($this->end_date)) {
             $this->calculateEndDate();
         }
+
         return date("Y-m-d", strtotime($this->end_date));
     }
 

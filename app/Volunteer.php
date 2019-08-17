@@ -37,4 +37,9 @@ class Volunteer extends User
     {
         return $this->belongsToMany(Service::class);
     }
+
+    public function timeSlots()
+    {
+        return $this->hasMany(VolunteerTimeSlot::class, 'volunteer_id');
+    }
 }

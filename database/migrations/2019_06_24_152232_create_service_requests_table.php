@@ -16,8 +16,6 @@ class CreateServiceRequestsTable extends Migration
         Schema::create('service_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->dateTime('start_date');
-            $table->integer('hour_count');
             $table->integer('status')->default(0);
             $table->bigInteger('service_id')->unsigned();
             $table->bigInteger('member_id')->unsigned();
