@@ -40,5 +40,9 @@ class ServiceSeeder extends Seeder
             'name' => 'Electricity',
             'shortname' => 'electricity',
         ]);
+        Service::create([
+            'name' => 'Non-qualified labour',
+            'shortname' => 'non-qualified-labour',
+        ]);
     }
 }
