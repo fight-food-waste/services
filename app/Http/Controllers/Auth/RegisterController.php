@@ -143,6 +143,8 @@ class RegisterController extends Controller
 
         $volunteer = Volunteer::create($user_attributes);
 
+        $volunteer->services()->attach($user_attributes['service']);
+
         Auth::login($volunteer);
 
         return redirect($this->redirectPath())->with('success', 'Registration successful!');

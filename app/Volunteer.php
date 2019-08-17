@@ -40,4 +40,9 @@ class Volunteer extends User
     {
         return $this->hasMany('App\ServiceRequest', 'volunteer_id');
     }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
 }

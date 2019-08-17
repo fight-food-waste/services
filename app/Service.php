@@ -19,4 +19,9 @@ class Service extends Model
     protected $fillable = [
         'name', 'shortname'
     ];
+
+    public function volunteers()
+    {
+        return $this->belongsToMany(Volunteer::class);
+    }
 }

@@ -27,9 +27,11 @@ class VolunteerForm extends Form
             ])
             ->add('password_confirmation', Field::PASSWORD)
             ->add('service', Field::SELECT, [
-                'rules' => 'required|int|exists:services,id',
+                'rules' => 'required|array|min:1',
                 'choices' => $services,
-                'empty_value' => 'Select a service'
+                'attr' => [
+                    'multiple' => 'multiple',
+                ],
             ])
             ->add('application_file', Field::FILE, [
                 'rules' => 'required|file|mimes:pdf'
