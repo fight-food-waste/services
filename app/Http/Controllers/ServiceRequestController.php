@@ -145,8 +145,9 @@ class ServiceRequestController extends Controller
         }
 
         // Get all volunteers which don't have a ServiceRequest conflicting with the new one
-        $availableVolunteers = Volunteer::where('service_id', $serviceRequest->service_id)
-            ->whereNotIn('id', $conflictingServiceRequests)
+        $availableVolunteers = Volunteer::whereHas('services', function ($q) {
+            $q->where('service_id', 1);
+        })->whereNotIn('id', $conflictingServiceRequests)
             ->where('status', 1)
             ->get();
 
