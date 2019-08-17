@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PrepareServiceRequest;
+use App\Http\Requests\StoreServiceRequest;
 use App\Service;
 use App\ServiceRequest;
 use App\Volunteer;
@@ -76,10 +76,10 @@ class ServiceRequestController extends Controller
     /**
      * Check for conflicting ServiceRequest and get all available volunteers for the second form
      *
-     * @param PrepareServiceRequest $request
+     * @param StoreServiceRequest $request
      * @return Factory|View
      */
-    public function store(PrepareServiceRequest $request)
+    public function store(StoreServiceRequest $request)
     {
         abort_if(! $request->user()->hasValidMembership(), 403);
 

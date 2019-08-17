@@ -25,9 +25,9 @@ class StoreServiceRequest extends FormRequest
     {
         return [
             'service_id' => ['required', 'integer', 'exists:services,id'],
-            'volunteer_id' => ['required', 'integer', 'exists:users,id'],
             'start_date' => ['required', 'date', 'after:today'],
             'hour_count' => ['required', 'integer', 'min:1'],
+            'description' => ['required', 'string'],
         ];
     }
 }
