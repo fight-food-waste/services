@@ -18,11 +18,10 @@ class VolunteerSeeder extends Seeder
             'email' => 'volunteer1@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status' => 1,
-            'service_id' => 1,
             'application_filename' => '5d1015e662aaf.pdf',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+        ])->services()->attach([1, 2]);
 
         Volunteer::create([
             'first_name' => 'Arthur',
@@ -30,10 +29,9 @@ class VolunteerSeeder extends Seeder
             'email' => 'volunteer2@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'status' => 1,
-            'service_id' => 2,
             'application_filename' => 'jdkjfdhfjs.pdf',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+        ])->services()->attach([2, 3]);
     }
 }
