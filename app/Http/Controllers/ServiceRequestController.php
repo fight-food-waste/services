@@ -56,8 +56,8 @@ class ServiceRequestController extends Controller
                 ->where('status', 1);
 
             if ($user->type == "volunteer") {
-                $unassignedServiceRequests = ServiceRequest::where('service_id', $user->service_id)
-                    ->where('status', 0)->get();
+                $unassignedServiceRequests = ServiceRequest::whereIn('service_id', $user->services->pluck('id'))
+                    ->whereStatus(0)->get();
             }
         }
 
