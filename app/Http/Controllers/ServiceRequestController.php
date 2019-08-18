@@ -11,6 +11,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Forms\ServiceRequestForm;
 use App\ServiceRequestTimeSlot;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 
 class ServiceRequestController extends Controller
@@ -133,6 +134,13 @@ class ServiceRequestController extends Controller
         $serviceRequest->status = 1;
         $serviceRequest->volunteer_id = $request->user()->id;
         $serviceRequest->save();
+
+        Mail::raw('Hello, your service request #' . $serviceRequest->id . ' has been picked up by ' . $request->user()->getFullName() . '.',
+            function ($message) use ($serviceRequest) {
+                $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
+                    ->to($serviceRequest->member->email)
+                    ->subject('You service request has been picked up');
+            });
 
         return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
     }
