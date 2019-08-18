@@ -6,16 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                @include('partials.alert')
 
                 @if($user->type == 'member')
                     <div class="card">
@@ -139,10 +130,10 @@
                                     <th scope="col">Start time</th>
                                     <th scope="col">End time</th>
                                     <th scope="col">Service</th>
-                                    @if ($user->type == 'member' || $user->type == 'admin')
+                                    @if ($user->type == 'member')
                                         <th scope="col">Volunteer</th>
                                     @endif
-                                    @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                    @if ($user->type == 'volunteer')
                                         <th scope="col">Member</th>
                                     @endif
                                     <th scope="col">Status</th>
@@ -156,11 +147,11 @@
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
-                                        @if ($user->type == 'member' || $user->type == 'admin')
+                                        @if ($user->type == 'member')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
                                                 {{ $serviceRequest->volunteer->last_name }}</td>
                                         @endif
-                                        @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                        @if ($user->type == 'volunteer')
                                             <td>{{ $serviceRequest->member->first_name }}
                                                 {{ $serviceRequest->member->last_name }}</td>
                                         @endif
@@ -188,10 +179,10 @@
                                     <th scope="col">Start time</th>
                                     <th scope="col">End time</th>
                                     <th scope="col">Service</th>
-                                    @if ($user->type == 'member' || $user->type == 'admin')
+                                    @if ($user->type == 'member')
                                         <th scope="col">Volunteer</th>
                                     @endif
-                                    @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                    @if ($user->type == 'volunteer')
                                         <th scope="col">Member</th>
                                     @endif
                                     <th scope="col">Status</th>
@@ -205,11 +196,11 @@
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
-                                        @if ($user->type == 'member' || $user->type == 'admin')
+                                        @if ($user->type == 'member')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
                                                 {{ $serviceRequest->volunteer->last_name }}</td>
                                         @endif
-                                        @if ($user->type == 'volunteer' || $user->type == 'admin')
+                                        @if ($user->type == 'volunteer')
                                             <td>{{ $serviceRequest->member->first_name }}
                                                 {{ $serviceRequest->member->last_name }}</td>
                                         @endif

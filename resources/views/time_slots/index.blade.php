@@ -6,11 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                @include('partials.alert')
 
                 <div class="card">
                     <div class="card-header">Add a new availability time slot</div>

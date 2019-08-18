@@ -73,7 +73,7 @@
                                 </a>
 
                                 @if($user->type == "admin")
-                                    <a class="dropdown-item" href="{{ route('admin') }}">
+                                    <a class="dropdown-item" href="{{ route('admin.index') }}">
                                         {{ __('Admin') }}
                                     </a>
                                 @endif

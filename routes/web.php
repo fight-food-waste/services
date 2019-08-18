@@ -31,10 +31,16 @@ Route::get('profile', 'ProfileController@index')->name('profile');
 Route::get('membership', 'MembershipController@index')->name('membership');
 Route::get('membership/renew', 'MembershipController@renew');
 
-Route::get('admin', 'AdminController@index')->name('admin');
-Route::get('admin/volunteer/{id}/approve', 'AdminController@approveVolunteer')->where('id', '[0-9]+');
-Route::get('admin/volunteer/{id}/reject', 'AdminController@rejectVolunteer')->where('id', '[0-9]+');
-Route::get('admin/application_files/{id}.pdf', 'AdminController@downloadVolunteerApplication')->where('id', '^[a-zA-Z0-9_]*$');
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'Admin\AdminController@index')->name('admin.index');
+
+    Route::get('volunteers', 'Admin\VolunteerController@index')->name('admin.volunteers.index');
+    Route::post('volunteers/{volunteer}/approve', 'Admin\VolunteerController@approveVolunteer')->where('volunteer', '[0-9]+')->name('admin.volunteers.approve');
+    Route::post('volunteers/{volunteer}/reject', 'Admin\VolunteerController@rejectVolunteer')->where('volunteer', '[0-9]+')->name('admin.volunteers.reject');
+    Route::get('volunteers/application_files/{id}', 'Admin\VolunteerController@downloadApplication')->name('admin.volunteers.application_file.download');
+
+    Route::get('members', 'Admin\MemberController@index')->name('admin.members.index');
+});
 
 Route::get('services-requests', 'ServiceRequestController@index')->name('service_requests.index');
 Route::post('services-requests', 'ServiceRequestController@store')->name('service_requests.store');
