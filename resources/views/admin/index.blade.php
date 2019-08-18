@@ -13,7 +13,8 @@
 
                         <ul>
                             <li><a href="{{ route('admin.volunteers.index') }}">Volunteers</a></li>
-                            <li><a href="{{ route('admin.members.index.index') }}">Members</a></li>
+                            <li><a href="{{ route('admin.members.index') }}">Members</a></li>
+                            <li><a href="{{ route('admin.services.index') }}">Services</a></li>
                         </ul>
 
                     </div>
