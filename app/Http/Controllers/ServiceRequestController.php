@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreServiceRequest;
 use App\Service;
 use App\ServiceRequest;
-use App\Volunteer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Kris\LaravelFormBuilder\FormBuilder;
+use App\Forms\ServiceRequestForm;
+use App\ServiceRequestTimeSlot;
+
 
 class ServiceRequestController extends Controller
 {
@@ -22,11 +24,16 @@ class ServiceRequestController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index(FormBuilder $formBuilder, Request $request)
     {
         $unassignedServiceRequests = [];
         $user = $request->user();
         $services = Service::all();
+
+        $form = $formBuilder->create(ServiceRequestForm::class, [
+            'method' => 'POST',
+            'url' => route('service_requests.store'),
+        ]);
 
         if ($user->type == "admin") {
             $serviceRequests = ServiceRequest::all();
@@ -68,7 +75,8 @@ class ServiceRequestController extends Controller
                 'pastServiceRequests',
                 'cancelledServiceRequests',
                 'unassignedServiceRequests',
-                'services'
+                'services',
+                'form'
             )
         );
     }
@@ -76,18 +84,29 @@ class ServiceRequestController extends Controller
     /**
      * Check for conflicting ServiceRequest and get all available volunteers for the second form
      *
-     * @param StoreServiceRequest $request
+     * @param FormBuilder $formBuilder
+     * @param Request     $request
      * @return Factory|View
      */
-    public function store(StoreServiceRequest $request)
+    public function store(FormBuilder $formBuilder, Request $request)
     {
         abort_if(! $request->user()->hasValidMembership(), 403);
 
-        $serviceRequestAttributes = $request->validated();
+        $form = $formBuilder->create(ServiceRequestForm::class);
 
-        $serviceRequestAttributes['member_id'] = $request->user()->id;
+        if (! $form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
 
-        ServiceRequest::create($serviceRequestAttributes);
+        $attributes = $form->getFieldValues();
+
+        $attributes['member_id'] = $request->user()->id;
+
+        $serviceRequest = ServiceRequest::create($attributes);
+
+        $attributes['service_request_id'] = $serviceRequest->id;
+
+        ServiceRequestTimeSlot::create($attributes);
 
         return redirect(route('service_requests.index'))->with('success', 'Service request completed successfully.');
     }
