@@ -63,6 +63,7 @@ class ServiceRequestController extends Controller
                 ->where('status', 1);
 
             if ($user->type == "volunteer") {
+                // Get unassigned service requests corresponding to one the volunteer's service
                 $unassignedServiceRequests = ServiceRequest::whereIn('service_id', $user->services->pluck('id'))
                     ->whereStatus(0)->get();
             }
@@ -129,47 +130,14 @@ class ServiceRequestController extends Controller
             abort(403);
         }
 
+        if (! $request->user()->canPickUp($serviceRequest)) {
+            return redirect()->back()->with('error', 'You can\'t pick up this service request');
+        }
+
         $serviceRequest->status = 1;
         $serviceRequest->volunteer_id = $request->user()->id;
         $serviceRequest->save();
 
         return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
-    }
-
-    /**
-     * Get available volunteers for a potential service request
-     *
-     * @param ServiceRequest $serviceRequest
-     * @return mixed
-     */
-    private function getAvailableVolunteers(ServiceRequest $serviceRequest)
-    {
-        // Get all ServiceRequest for the same Service that can potentially be conflicting for the time range
-        $serviceRequestsForSameService = ServiceRequest::where('service_id', $serviceRequest->service_id)
-            ->where('status', 1)
-            ->get();
-
-        $conflictingServiceRequests = [];
-
-        // Extract all conflicting ServiceRequest
-        foreach ($serviceRequestsForSameService as $tmpServiceRequest) {
-
-            // Check if the new ServiceRequest's time range does not overlap with another service request
-            if (($tmpServiceRequest->getStartDate() < $serviceRequest->getStartDate() && $tmpServiceRequest->getEndDate() < $serviceRequest->getStartDate())
-                || ($tmpServiceRequest->getStartDate() > $serviceRequest->getEndDate() && $tmpServiceRequest->getEndDate() > $serviceRequest->getEndDate())) {
-                // no conflict
-            } else {
-                array_push($conflictingServiceRequests, $tmpServiceRequest->volunteer_id);
-            }
-        }
-
-        // Get all volunteers which don't have a ServiceRequest conflicting with the new one
-        $availableVolunteers = Volunteer::whereHas('services', function ($q) {
-            $q->where('service_id', 1);
-        })->whereNotIn('id', $conflictingServiceRequests)
-            ->where('status', 1)
-            ->get();
-
-        return $availableVolunteers;
     }
 }

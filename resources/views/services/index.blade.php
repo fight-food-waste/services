@@ -51,7 +51,7 @@
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
-                                            <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
@@ -98,20 +98,22 @@
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
-                                            <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
 
                                             <td>
-                                                @if($serviceRequest->status == 0)
+                                                @if($user->canPickUp($serviceRequest))
                                                     <a href="{{ route('service_requests.pick_up', $serviceRequest->id) }}">
                                                         <button type="button" class="btn btn-sm btn-primary">
                                                             <i class="fas fa-cart-plus"></i>
                                                         </button>
                                                     </a>
                                                 @else
-                                                    {{ $serviceRequest->getStatusName() }}
+                                                    <button type="button" class="btn btn-sm btn-secondary" disabled>
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -150,7 +152,7 @@
                                 @foreach ($incomingServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
@@ -199,7 +201,7 @@
                                 @foreach ($pastServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
@@ -242,7 +244,7 @@
                                 @foreach ($cancelledServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>

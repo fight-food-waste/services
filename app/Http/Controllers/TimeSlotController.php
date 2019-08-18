@@ -48,6 +48,8 @@ class TimeSlotController extends Controller
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
+        // TODO check for overlapping time slots
+
         $attributes = $form->getFieldValues();
 
         $attributes['volunteer_id'] = $request->user()->id;

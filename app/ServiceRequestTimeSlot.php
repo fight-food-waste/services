@@ -13,6 +13,10 @@ class ServiceRequestTimeSlot extends TimeSlot
         'service_request_id',
     ];
 
+    protected $dates = [
+        'date',
+    ];
+
     public function serviceRequest()
     {
         return $this->belongsTo(ServiceRequest::class);
