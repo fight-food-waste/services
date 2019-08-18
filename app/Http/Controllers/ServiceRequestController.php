@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Forms\ServiceRequestForm;
 use App\ServiceRequestTimeSlot;
+use Carbon\Carbon;
 
 
 class ServiceRequestController extends Controller
@@ -42,11 +43,15 @@ class ServiceRequestController extends Controller
 
             $unassignedServiceRequests = $serviceRequests->where('status', 0);
 
-            $pastServiceRequests = $serviceRequests->where('start_date', '<', date('Y-m-d'))
-                ->where('status', 1);
+            $pastServiceRequests = ServiceRequest::whereHas('timeSlot', function ($query) {
+                $query->where('date', '<', Carbon::now()->format('Y-m-d'));
+            })->where('status', 1)
+                ->get();
 
-            $incomingServiceRequests = $serviceRequests->where('start_date', '>=', date('Y-m-d'))
-                ->where('status', 1);
+            $incomingServiceRequests = ServiceRequest::whereHas('timeSlot', function ($query) {
+                $query->where('date', '>=', Carbon::now()->format('Y-m-d'));
+            })->where('status', 1)
+                ->get();
         } else {
             $serviceRequests = $user->serviceRequests;
 
@@ -54,18 +59,28 @@ class ServiceRequestController extends Controller
 
             $unassignedServiceRequests = $serviceRequests->where('status', 0);
 
-            $pastServiceRequests = $serviceRequests
-                ->where('start_date', '<', date('Y-m-d'))
-                ->where('status', 1);
+            $pastServiceRequests = ServiceRequest::whereHas('timeSlot', function ($query) {
+                $query->where('date', '<', Carbon::now()->format('Y-m-d'));
+            })->where('status', 1)
+                ->get();
 
-            $incomingServiceRequests = $serviceRequests
-                ->where('start_date', '>', date('Y-m-d'))
-                ->where('status', 1);
+            $incomingServiceRequests = ServiceRequest::whereHas('timeSlot', function ($query) {
+                $query->where('date', '>=', Carbon::now()->format('Y-m-d'));
+            })->where('status', 1)
+                ->get();
 
             if ($user->type == "volunteer") {
                 // Get unassigned service requests corresponding to one the volunteer's service
                 $unassignedServiceRequests = ServiceRequest::whereIn('service_id', $user->services->pluck('id'))
                     ->whereStatus(0)->get();
+
+                $incomingServiceRequests = $incomingServiceRequests->where('volunteer_id', $user->id);
+                $pastServiceRequests = $pastServiceRequests->where('volunteer_id', $user->id);
+            }
+
+            if ($user->type == "member") {
+                $incomingServiceRequests = $incomingServiceRequests->where('member_id', $user->id);
+                $pastServiceRequests = $pastServiceRequests->where('member_id', $user->id);
             }
         }
 
