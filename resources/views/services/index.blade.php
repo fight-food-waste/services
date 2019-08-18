@@ -113,8 +113,8 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Day</th>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">Hours</th>
+                                        <th scope="col">Start time</th>
+                                        <th scope="col">End time</th>
                                         <th scope="col">Service</th>
                                         <th scope="col">Cancel</th>
                                     </tr>
@@ -123,9 +123,9 @@
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
-                                            <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
-                                            <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
-                                            <td>{{ $serviceRequest->hour_count }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
 
                                             <td>
@@ -160,8 +160,8 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Day</th>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">Hours</th>
+                                        <th scope="col">Start time</th>
+                                        <th scope="col">End time</th>
                                         <th scope="col">Service</th>
                                         <th scope="col">Pick up</th>
                                     </tr>
@@ -170,9 +170,9 @@
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
-                                            <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
-                                            <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
-                                            <td>{{ $serviceRequest->hour_count }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
+                                            <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
 
                                             <td>
@@ -206,8 +206,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Day</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Hours</th>
+                                    <th scope="col">Start time</th>
+                                    <th scope="col">End time</th>
                                     <th scope="col">Service</th>
                                     @if ($user->type == 'member' || $user->type == 'admin')
                                         <th scope="col">Volunteer</th>
@@ -222,9 +222,9 @@
                                 @foreach ($incomingServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
@@ -255,8 +255,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Day</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Hours</th>
+                                    <th scope="col">Start time</th>
+                                    <th scope="col">End time</th>
                                     <th scope="col">Service</th>
                                     @if ($user->type == 'member' || $user->type == 'admin')
                                         <th scope="col">Volunteer</th>
@@ -271,9 +271,9 @@
                                 @foreach ($pastServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
                                         @if ($user->type == 'member' || $user->type == 'admin')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
@@ -304,8 +304,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Day</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Hours</th>
+                                    <th scope="col">Start time</th>
+                                    <th scope="col">End time</th>
                                     <th scope="col">Service</th>
                                     <th scope="col">Status</th>
                                 </tr>
@@ -314,9 +314,9 @@
                                 @foreach ($cancelledServiceRequests as $serviceRequest)
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
-                                        <td>{{ date("d-m-Y", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ date("H:i", strtotime($serviceRequest->start_date)) }}</td>
-                                        <td>{{ $serviceRequest->hour_count }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->date }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
+                                        <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
 
                                         <td>
