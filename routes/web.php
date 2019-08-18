@@ -41,4 +41,8 @@ Route::post('services-requests', 'ServiceRequestController@store')->name('servic
 Route::get('services-requests/{service_request}/cancel', 'ServiceRequestController@cancel')->where('service_request', '[0-9]+')->name('service_requests.cancel');
 Route::get('services-requests/{service_request}/pickup', 'ServiceRequestController@pickUp')->where('service_request', '[0-9]+')->name('service_requests.pick_up');
 
+Route::get('time-slots', 'TimeSlotController@index')->name('time_slots.index');
+Route::post('time-slots', 'TimeSlotController@store')->name('time_slots.store');
+Route::delete('time-slots/{timeSlot}', 'TimeSlotController@destroy')->name('time_slots.destroy');
+
 Route::get('planning/export', 'ExportController@planning')->name('planning.export');

@@ -78,6 +78,12 @@
                                     </a>
                                 @endif
 
+                                @if($user->type == "volunteer")
+                                    <a class="dropdown-item" href="{{ route('time_slots.index') }}">
+                                        {{ __('Time Slots') }}
+                                    </a>
+                                @endif
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
