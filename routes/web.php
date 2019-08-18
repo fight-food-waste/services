@@ -40,6 +40,9 @@ Route::prefix('admin')->group(function () {
     Route::get('volunteers/application_files/{id}', 'Admin\VolunteerController@downloadApplication')->name('admin.volunteers.application_file.download');
 
     Route::get('members', 'Admin\MemberController@index')->name('admin.members.index');
+
+    Route::get('services', 'Admin\ServiceController@index')->name('admin.services.index');
+    Route::post('services', 'Admin\ServiceController@store')->name('admin.services.store');
 });
 
 Route::get('services-requests', 'ServiceRequestController@index')->name('service_requests.index');
