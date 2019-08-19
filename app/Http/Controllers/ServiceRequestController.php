@@ -66,7 +66,7 @@ class ServiceRequestController extends Controller
             $pastServiceRequests = $pastServiceRequests->where('member_id', $user->id);
         }
 
-        return view('services.index',
+        return view('services_requests.index',
             compact(
                 'user',
                 'incomingServiceRequests',
