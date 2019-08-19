@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
 
                 @include('partials.alert')
 
@@ -35,17 +35,49 @@
                                         <th scope="col">Start time</th>
                                         <th scope="col">End time</th>
                                         <th scope="col">Service</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">Cancel</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
+
+                                        <div class="modal fade" id="modal-{{$serviceRequest->id}}" tabindex="-1"
+                                             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{$serviceRequest->description}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
                                             <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                        data-target="#modal-{{$serviceRequest->id}}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
 
                                             <td>
                                                 @if($serviceRequest->status == 0)
@@ -82,17 +114,48 @@
                                         <th scope="col">Start time</th>
                                         <th scope="col">End time</th>
                                         <th scope="col">Service</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">Pick up</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($unassignedServiceRequests as $serviceRequest)
+                                        <div class="modal fade" id="modal-{{$serviceRequest->id}}" tabindex="-1"
+                                             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{$serviceRequest->description}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <tr>
                                             <th scope="row">{{ $serviceRequest->id }}</th>
                                             <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                             <td>{{ $serviceRequest->service->name }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                        data-target="#modal-{{$serviceRequest->id}}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
 
                                             <td>
                                                 @if($user->canPickUp($serviceRequest))
@@ -130,6 +193,7 @@
                                     <th scope="col">Start time</th>
                                     <th scope="col">End time</th>
                                     <th scope="col">Service</th>
+                                    <th scope="col">Description</th>
                                     @if ($user->type == 'member')
                                         <th scope="col">Volunteer</th>
                                     @endif
@@ -141,12 +205,42 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($incomingServiceRequests as $serviceRequest)
+
+                                    <div class="modal fade" id="modal-{{$serviceRequest->id}}" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{$serviceRequest->description}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
                                         <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                    data-target="#modal-{{$serviceRequest->id}}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
                                         @if ($user->type == 'member')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
                                                 {{ $serviceRequest->volunteer->last_name }}</td>
@@ -179,6 +273,7 @@
                                     <th scope="col">Start time</th>
                                     <th scope="col">End time</th>
                                     <th scope="col">Service</th>
+                                    <th scope="col">Description</th>
                                     @if ($user->type == 'member')
                                         <th scope="col">Volunteer</th>
                                     @endif
@@ -190,12 +285,42 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($pastServiceRequests as $serviceRequest)
+
+                                    <div class="modal fade" id="modal-{{$serviceRequest->id}}" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{$serviceRequest->description}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
                                         <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                    data-target="#modal-{{$serviceRequest->id}}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
                                         @if ($user->type == 'member')
                                             <td>{{ $serviceRequest->volunteer->first_name }}
                                                 {{ $serviceRequest->volunteer->last_name }}</td>
@@ -228,17 +353,48 @@
                                     <th scope="col">Start time</th>
                                     <th scope="col">End time</th>
                                     <th scope="col">Service</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($cancelledServiceRequests as $serviceRequest)
+
+                                    <div class="modal fade" id="modal-{{$serviceRequest->id}}" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{$serviceRequest->description}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <tr>
                                         <th scope="row">{{ $serviceRequest->id }}</th>
                                         <td>{{ $serviceRequest->timeSlot->date->format('Y-m-d') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->start_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->timeSlot->end_time->format('H:i') }}</td>
                                         <td>{{ $serviceRequest->service->name }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                    data-target="#modal-{{$serviceRequest->id}}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
 
                                         <td>
                                             {{ $serviceRequest->getStatusName() }}
