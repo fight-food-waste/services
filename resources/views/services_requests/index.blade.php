@@ -80,15 +80,11 @@
                                             </td>
 
                                             <td>
-                                                @if($serviceRequest->status == 0)
-                                                    <a href="{{ route('service_requests.cancel', $serviceRequest->id) }}">
-                                                        <button type="button" class="btn btn-sm btn-danger">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
-                                                    </a>
-                                                @else
-                                                    {{ $serviceRequest->getStatusName() }}
-                                                @endif
+                                                <a href="{{ route('service_requests.cancel', $serviceRequest->id) }}">
+                                                    <button type="button" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -200,7 +196,7 @@
                                     @if ($user->type == 'volunteer')
                                         <th scope="col">Member</th>
                                     @endif
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Cancel</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -250,7 +246,11 @@
                                                 {{ $serviceRequest->member->last_name }}</td>
                                         @endif
                                         <td>
-                                            {{ $serviceRequest->getStatusName() }}
+                                            <a href="{{ route('service_requests.cancel', $serviceRequest->id) }}">
+                                                <button type="button" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

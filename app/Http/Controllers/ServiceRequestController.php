@@ -111,12 +111,35 @@ class ServiceRequestController extends Controller
 
     public function cancel(ServiceRequest $serviceRequest, Request $request)
     {
-        if ($serviceRequest->member_id != $request->user()->id && $request->user()->type != "admin") {
-            abort(403);
+        $user = $request->user();
+
+        if ($user->type === 'member') {
+            abort_unless($serviceRequest->member_id === $request->user()->id, 403);
+        } elseif ($user->type === 'volunteer') {
+            abort_unless(($serviceRequest->status === 1 && $serviceRequest->volunteer_id === $request->user()->id), 403);
+        }
+
+        if ($serviceRequest->status === 1) {
+            if ($request->user()->type === 'volunteer') {
+                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                    function ($message) use ($serviceRequest) {
+                        $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
+                            ->to($serviceRequest->member->email)
+                            ->subject('A service request has been canceled');
+                    });
+            } elseif ($request->user()->type === 'member') {
+                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                    function ($message) use ($serviceRequest) {
+                        $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
+                            ->to($serviceRequest->volunteer->email)
+                            ->subject('A service request has been canceled');
+                    });
+            }
         }
 
         $serviceRequest->status = -1;
         $serviceRequest->save();
+
 
         return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
     }
