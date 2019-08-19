@@ -69,7 +69,7 @@
                                 @endif
 
                                 <a class="dropdown-item" href="{{ route('service_requests.index') }}">
-                                    {{ __('Services') }}
+                                    {{ __('Service requests') }}
                                 </a>
 
                                 @if($user->type == "admin")
