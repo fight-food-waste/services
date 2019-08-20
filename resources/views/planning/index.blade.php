@@ -11,7 +11,8 @@
                 <div class="card">
                     <div class="card-header">Planning</div>
                     <div class="card-body">
-                        {{--                        {!! form($form) !!}--}}
+                        {!! form($form) !!}
+
                     </div>
                 </div>
 
