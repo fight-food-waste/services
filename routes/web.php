@@ -54,4 +54,5 @@ Route::get('time-slots', 'TimeSlotController@index')->name('time_slots.index');
 Route::post('time-slots', 'TimeSlotController@store')->name('time_slots.store');
 Route::delete('time-slots/{timeSlot}', 'TimeSlotController@destroy')->name('time_slots.destroy');
 
-Route::get('planning/export', 'ExportController@planning')->name('planning.export');
+Route::get('planning', 'PlanningController@index')->name('planning.index');
+Route::get('planning/export', 'PlanningController@export')->name('planning.export');
