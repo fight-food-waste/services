@@ -49,6 +49,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
+                            @foreach (Config::get('languages') as $locale => $language)
+                                @if ($locale != App::getLocale())
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('lang.switch', $locale) }}">{{$language}}</a>
+                                    </li>
+                                @endif
+                            @endforeach
                         @endif
                     @else
                         <li class="nav-item dropdown">
