@@ -43,11 +43,11 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}"></a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('signup.signup') }}</a>
                             </li>
                             @foreach (Config::get('languages') as $locale => $language)
                                 @if ($locale != App::getLocale())
@@ -66,35 +66,42 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('profile') }}">
-                                    {{ __('Profile') }}
+                                    {{ __('main.admin') }}
                                 </a>
 
                                 @if($user->type == "member")
                                     <a class="dropdown-item" href="{{ route('membership') }}">
-                                        {{ __('Membership') }}
+                                        {{ __('main.membership') }}
                                     </a>
                                 @endif
 
                                 <a class="dropdown-item" href="{{ route('service_requests.index') }}">
-                                    {{ __('Services') }}
+                                    {{ __('main.services') }}
                                 </a>
 
                                 @if($user->type == "admin")
                                     <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                        {{ __('Admin') }}
+                                        {{ __('main.admin') }}
                                     </a>
                                 @endif
 
                                 @if($user->type == "volunteer")
                                     <a class="dropdown-item" href="{{ route('time_slots.index') }}">
-                                        {{ __('Time Slots') }}
+                                        {{ __('main.time_slots') }}
                                     </a>
                                 @endif
+
+                                @foreach (Config::get('languages') as $locale => $language)
+                                    @if ($locale != App::getLocale())
+                                        <a class="dropdown-item"
+                                           href="{{ route('lang.switch', $locale) }}">{{$language}}</a>
+                                    @endif
+                                @endforeach
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('main.logout') }}
                                 </a>
 
 

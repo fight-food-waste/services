@@ -5,17 +5,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Membership management</div>
+                    <div class="card-header">{{ __('admin.membership.membership_management') }}</div>
 
                     <div class="card-body">
                         @include('partials.alert')
 
                         @if($user->type == "member")
                             @if($user->hasValidMembership())
-                                Great, your membership is active until the {{ $user->membership_end_date }}
+                                {{ __('admin.membership.membership_active_until', ['date' => $user->membership_end_date]) }}
                             @else
-                                Your membership is not active. You can't request services.
-                                <a href="{{ url('/membership/renew') }}"><button type="button" class="btn btn-primary">Subscribe</button>
+                                {{ __('admin.membership.membership_not_active') }}
+                                <a href="{{ url('/membership/renew') }}"><button type="button" class="btn btn-primary">{{ __('admin.membership.subscribe') }}</button>
                             @endif
                         @endif
                     </div>

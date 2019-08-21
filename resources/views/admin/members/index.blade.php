@@ -7,7 +7,7 @@
                 @include('partials.alert')
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Members') }}</div>
+                    <div class="card-header">{{ __('admin.index.members') }}</div>
 
                     <div class="card-body">
 
@@ -16,9 +16,9 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('admin.members.columns.first_name') }}</th>
+                                    <th scope="col">{{ __('admin.members.columns.last_name') }}/th>
+                                    <th scope="col">{{ __('admin.members.columns.status') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -29,14 +29,14 @@
                                         <td>{{ $member->last_name }}</td>
 
                                         <td>
-                                            {{ $member->getStatusName()  }}
+                                            {{ $member->getStatusName() }}
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         @else
-                            There is no banned volunteer.
+                            {{ __('admin.members.no_banned_volunteer') }}
                         @endif
                     </div>
                 </div>

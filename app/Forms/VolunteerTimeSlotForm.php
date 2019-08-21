@@ -13,21 +13,26 @@ class VolunteerTimeSlotForm extends Form
             ->add('week_day', Field::SELECT, [
                 'rules' => 'required|integer|min:1|max:7',
                 'choices' => [
-                    1 => 'Monday',
-                    2 => 'Tuesday',
-                    3 => 'Wednesday',
-                    4 => 'Thursday',
-                    5 => 'Friday',
-                    6 => 'Saturday',
-                    7 => 'Sunday',
+                    1 => __('admin.time_slots.form.monday'),
+                    2 => __('admin.time_slots.form.tuesday'),
+                    3 => __('admin.time_slots.form.wednesday'),
+                    4 => __('admin.time_slots.form.thursday'),
+                    5 => __('admin.time_slots.form.friday'),
+                    6 => __('admin.time_slots.form.start_time'),
+                    7 => __('admin.time_slots.form.sunday'),
                 ],
+                'label' => __('admin.time_slots.form.week_day'),
             ])
             ->add('start_time', Field::TIME, [
                 'rules' => 'required|date_format:H:i',
+                'label' => __('admin.time_slots.form.start_time')
             ])
             ->add('end_time', Field::TIME, [
                 'rules' => 'required|date_format:H:i|after:start_time',
+                'label' => __('admin.time_slots.form.end_time'),
             ])
-            ->add('submit', Field::BUTTON_SUBMIT);
+            ->add('submit', Field::BUTTON_SUBMIT, [
+                'label' => __('admin.time_slots.form.submit')
+            ]);
     }
 }

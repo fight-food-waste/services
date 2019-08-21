@@ -12,10 +12,14 @@ class ServiceForm extends Form
         $this
             ->add('name', Field::TEXT, [
                 'rules' => 'required|string|min:3',
+                'label' => __('admin.services.form.name'),
             ])
             ->add('shortname', Field::TEXT, [
                 'rules' => 'required|string|min:3',
+                'label' => __('admin.services.form.short_name'),
             ])
-            ->add('submit', Field::BUTTON_SUBMIT);
+            ->add('submit', Field::BUTTON_SUBMIT, [
+                'label' => __('admin.services.form.submit'),
+            ]);
     }
 }

@@ -9,7 +9,7 @@
                 @include('partials.alert')
 
                 <div class="card">
-                    <div class="card-header">Add a new availability time slot</div>
+                    <div class="card-header">{{__('admin.time_slots.add_new_availability_time_slot') }}</div>
                     <div class="card-body">
                         {!! form($form) !!}
                     </div>
@@ -17,16 +17,16 @@
 
 
                 <div class="card card-more">
-                    <div class="card-header">Your availability time slots</div>
+                    <div class="card-header">{{__('admin.time_slots.your_availability_time_slots') }}</div>
                     <div class="card-body">
                         @if (sizeof($user->timeSlots) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Start time</th>
-                                    <th scope="col">End time</th>
-                                    <th scope="col">Delete</th>
+                                    <th scope="col">{{__('admin.time_slots.columns.day') }}</th>
+                                    <th scope="col">{{__('admin.time_slots.columns.start_time') }}e</th>
+                                    <th scope="col">{{__('admin.time_slots.columns.end_time') }}</th>
+                                    <th scope="col">{{__('admin.time_slots.columns.delete') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +50,7 @@
                                 </tbody>
                             </table>
                         @else
-                            You don't have any time slot yet.
+                            {{__('admin.time_slots.no_time_slot') }}
                         @endif
                     </div>
                 </div>
