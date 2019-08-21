@@ -41,6 +41,6 @@ class ServiceController extends Controller
 
         Service::create($form->getFieldValues());
 
-        return redirect()->back()->with('success', 'The service has been created.');
+        return redirect()->back()->with('success', __('flash.admin.service_controller.store_success'));
     }
 }

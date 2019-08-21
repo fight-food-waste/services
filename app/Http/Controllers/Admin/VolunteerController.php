@@ -38,7 +38,7 @@ class VolunteerController extends Controller
         $volunteer->status = 1;
         $volunteer->save();
 
-        return redirect()->back()->with('success', 'Volunteer ' . $request->route('id') . ' has been approved.');
+        return redirect()->back()->with('success', __('flash.admin.volunteer_controller.approve_volunteer_success', ['user' => $request->route('id')]));
     }
 
     public function rejectVolunteer(Volunteer $volunteer, Request $request)
@@ -46,6 +46,6 @@ class VolunteerController extends Controller
         $volunteer->status = -1;
         $volunteer->save();
 
-        return redirect()->back()->with('success', 'Volunteer ' . $request->route('id') . ' has been rejected.');
+        return redirect()->back()->with('success', __('flash.admin.volunteer_controller.reject_volunteer_success', ['user' => $request->route('id')]));
     }
 }
