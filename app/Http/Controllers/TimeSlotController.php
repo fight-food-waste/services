@@ -48,13 +48,21 @@ class TimeSlotController extends Controller
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
-        // TODO check for overlapping time slots
-
         $attributes = $form->getFieldValues();
-
         $attributes['volunteer_id'] = $request->user()->id;
 
-        VolunteerTimeSlot::create($attributes);
+        $newTimeSlot = new VolunteerTimeSlot($attributes);
+
+        foreach ($request->user()->timeSlots as $timeSlot) {
+            if ($timeSlot->week_day == $newTimeSlot->week_day) {
+                if (! (($timeSlot->start_time->isBefore($newTimeSlot->start_time) && $timeSlot->end_time->isBefore($newTimeSlot->start_time))
+                    || ($timeSlot->start_time->isAfter($newTimeSlot->end_time) && $timeSlot->end_time->isAfter($newTimeSlot->end_time)))) {
+                    return redirect()->back()->with('error', 'The time slot is overlapping with another time slot.');
+                }
+            }
+        }
+
+        $newTimeSlot->save();
 
         return redirect()->back()->with('success', __('flash.time_slot_controller.store_success'));
     }

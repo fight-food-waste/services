@@ -98,6 +98,12 @@
                                     @endif
                                 @endforeach
 
+                                @if($user->type == "volunteer" || $user->type == "admin")
+                                    <a class="dropdown-item" href="{{ route('planning.index') }}">
+                                        {{ __('Planning') }}
+                                    </a>
+                                @endif
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
