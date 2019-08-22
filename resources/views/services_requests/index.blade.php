@@ -194,9 +194,9 @@
                                         <th scope="col">{{ __('admin.services_requests.columns.volunteer') }}</th>
                                     @endif
                                     @if ($user->type == 'volunteer')
-                                        <th scope="col">{{ __('admin.services_requests.columns.member') }} }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
                                     @endif
-                                    <th scope="col">{{ __('admin.services_requests.columns.status') }} }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                     <th scope="col">Cancel</th>
                                 </tr>
                                 </thead>
@@ -273,15 +273,15 @@
                                     <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
                                     <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
                                     <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.service') }} }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                     <th scope="col">Description</th>
                                     @if ($user->type == 'member')
-                                        <th scope="col">{{ __('admin.services_requests.columns.volunteer') }} }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.volunteer') }}</th>
                                     @endif
                                     @if ($user->type == 'volunteer')
-                                        <th scope="col">{{ __('admin.services_requests.columns.member') }} }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
                                     @endif
-                                    <th scope="col">{{ __('admin.services_requests.columns.status') }} }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -350,12 +350,12 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.day') }} }}</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.start_time') }} }}</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.end_time') }} }}</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.service') }} }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col">{{ __('admin.services_requests.columns.status') }} }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
