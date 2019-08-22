@@ -3,7 +3,7 @@
 return [
 
     'index' => [
-        'services_request(s)' => "Service(s) request(s)",
+        'services_request(s)' => "Service request(s)",
         'volunteers' => "Volunteers",
         'members' => "Members",
         'services' => "Services",

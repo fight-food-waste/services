@@ -5,11 +5,11 @@ return [
         'admin_controller' => [],
         'member_controller' => [],
         'service_controller' => [
-            'store_success' => "The service has been created.",
+            'store_success' => "Le service a bien été créé.",
         ],
         'volunteer_controller' => [
-            'approve_volunteer_success' => "Volunteer :user has been approved.",
-            'reject_volunteer_success' => "Volunteer :user has been rejected.",
+            'approve_volunteer_success' => "Le bénévole :user a été approuvé.",
+            'reject_volunteer_success' => "Le bénévole :user a été rejeté.",
         ],
     ],
     'login_controller' => [
@@ -22,22 +22,22 @@ return [
     'export_controller' => [],
     'home_controller' => [],
     'localization_controller' => [
-        'locale_not_exist_error' => 'This language is not supported.',
+        'locale_not_exist_error' => "Cette langue n'est pas supportée.",
     ],
     'membership_controller' => [
-        'renew_success_1' => "You already have a valid membership",
-        'renew_success_2' => "You now have a valid membership",
+        'renew_success_1' => "Vous disposez déjà d'une adhésion valide",
+        'renew_success_2' => "Vous êtes désormais adhérent !",
     ],
     'profile_controller' => [],
     'service_request_controller' => [
-        'store_success' => "Service request completed successfully.",
-        'cancel_success' => "Service request :user has been rejected.",
-        'pick_up_error' => "You can't pick up this service request",
-        'mail_raw' => "Hello, your service request #:service_request has been picked up by :user_first_name.",
-        'pick_up_success' => "Service request :service_request has been picked up.",
+        'store_success' => "La demande de service a été effectuée avec succès.",
+        'cancel_success' => "La demande de service :user a été rejetée.",
+        'pick_up_error' => "Vous ne pouvez vous attribuer cette demande de service",
+        'mail_raw' => "Bonjour, votre demande de service #:service_request a été attribuée à :user_first_name.",
+        'pick_up_success' => "La demande de service :service_request a été attribuée.",
     ],
     'time_slot_controller' => [
-        'destroy_success' => "The time slot has been deleted.",
-        'store_success' => "The time slot has been created.",
+        'destroy_success' => "Le créneau a été supprimé.",
+        'store_success' => "Le créneau a été créé.",
     ],
 ];
