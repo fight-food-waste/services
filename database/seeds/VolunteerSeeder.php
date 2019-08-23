@@ -2,6 +2,7 @@
 
 use App\Volunteer;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class VolunteerSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class VolunteerSeeder extends Seeder
             'first_name' => 'Thomas',
             'last_name' => 'Martin',
             'email' => 'volunteer1@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('qwertyuiop'), // password
             'status' => 1,
             'application_filename' => '5d1015e662aaf.pdf',
             'created_at' => date('Y-m-d H:i:s'),
@@ -27,7 +28,7 @@ class VolunteerSeeder extends Seeder
             'first_name' => 'Arthur',
             'last_name' => 'Papaye',
             'email' => 'volunteer2@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('qwertyuiop'), // password
             'status' => 1,
             'application_filename' => 'jdkjfdhfjs.pdf',
             'created_at' => date('Y-m-d H:i:s'),
