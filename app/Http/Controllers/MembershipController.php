@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
