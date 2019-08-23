@@ -7,7 +7,7 @@
                 @include('partials.alert')
 
                 <div class="card">
-                    <div class="card-header">Add a new service</div>
+                    <div class="card-header">{{ __('admin.services.add_new_service') }}</div>
                     <div class="card-body">
                         {!! form($form) !!}
                     </div>
@@ -23,8 +23,8 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Short name</th>
+                                    <th scope="col">{{ __('admin.services.column.name') }}</th>
+                                    <th scope="col">{{ __('admin.services.column.short_name') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -38,7 +38,7 @@
                                 </tbody>
                             </table>
                         @else
-                            There is no service.
+                            {{ __('admin.services.no_service') }}
                         @endif
                     </div>
                 </div>

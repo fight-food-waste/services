@@ -106,7 +106,7 @@ class ServiceRequestController extends Controller
 
         ServiceRequestTimeSlot::create($attributes);
 
-        return redirect(route('service_requests.index'))->with('success', 'Service request completed successfully.');
+        return redirect(route('service_requests.index'))->with('success', __('flash.admin.service_controller.store_success'));
     }
 
     public function cancel(ServiceRequest $serviceRequest, Request $request)
@@ -120,19 +120,24 @@ class ServiceRequestController extends Controller
         }
 
         if ($serviceRequest->status === 1) {
+            $mailRawText = __('flash.service_request_controller.cancel_mail_raw', [
+                'service_request' => $serviceRequest->id,
+                'user_first_name' => $user->getFullName(),
+            ]);
+
             if ($request->user()->type === 'volunteer') {
-                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                Mail::raw($mailRawText,
                     function ($message) use ($serviceRequest) {
                         $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
                             ->to($serviceRequest->member->email)
-                            ->subject('A service request has been canceled');
+                            ->subject(__('flash.service_request_controller.service_request_canceled'));
                     });
             } elseif ($request->user()->type === 'member') {
-                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                Mail::raw($mailRawText,
                     function ($message) use ($serviceRequest) {
                         $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
                             ->to($serviceRequest->volunteer->email)
-                            ->subject('A service request has been canceled');
+                            ->subject(__('flash.service_request_controller.service_request_canceled'));
                     });
             }
         }
@@ -140,8 +145,7 @@ class ServiceRequestController extends Controller
         $serviceRequest->status = -1;
         $serviceRequest->save();
 
-
-        return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been rejected.');
+        return redirect(route('service_requests.index'))->with('success', __('flash.service_request_controller.cancel_success', ['service_request' => $request->route('id')]));
     }
 
     public function pickUp(ServiceRequest $serviceRequest, Request $request)
@@ -151,20 +155,22 @@ class ServiceRequestController extends Controller
         }
 
         if (! $request->user()->canPickUp($serviceRequest)) {
-            return redirect()->back()->with('error', 'You can\'t pick up this service request');
+            return redirect()->back()->with('error', __('flash.service_request_controller.pick_up_error'));
         }
 
         $serviceRequest->status = 1;
         $serviceRequest->volunteer_id = $request->user()->id;
         $serviceRequest->save();
 
-        Mail::raw('Hello, your service request #' . $serviceRequest->id . ' has been picked up by ' . $request->user()->getFullName() . '.',
-            function ($message) use ($serviceRequest) {
+        Mail::raw(__('flash.service_request_controller.pick_up_mail_raw', [
+            'service_request' => $serviceRequest->id,
+            'user_first_name' => $request->user()->getFullName()
+        ]), function ($message) use ($serviceRequest) {
                 $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
                     ->to($serviceRequest->member->email)
-                    ->subject('You service request has been picked up');
+                    ->subject(__('flash.service_request_controller.service_picked_up'));
             });
 
-        return redirect(route('service_requests.index'))->with('success', 'Service request ' . $request->route('id') . ' has been picked up.');
+        return redirect(route('service_requests.index'))->with('success', __('flash.service_request_controller.pick_up_success', ['service_request' => $request->route('id')]));
     }
 }

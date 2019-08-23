@@ -16,10 +16,10 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Proof of application</th>
-                                    <th scope="col">Approve</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.first_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.last_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.proof_of_application') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.approve') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,13 +56,13 @@
                                 </tbody>
                             </table>
                         @else
-                            There is no volunteer waiting for approval!
+                            {{ __('admin.volunteers.no_volunteer_waiting') }}
                         @endif
                     </div>
                 </div>
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Approved volunteers') }}</div>
+                    <div class="card-header">{{ __('admin.volunteers.approved_volunteers') }}</div>
 
                     <div class="card-body">
 
@@ -71,10 +71,10 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Proof of application</th>
-                                    <th scope="col">Reject</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.first_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.last_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.proof_of_application') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.reject') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,13 +104,13 @@
                                 </tbody>
                             </table>
                         @else
-                            There is no approved volunteer.
+                            {{ __('admin.volunteers.no_approved_volunteer') }}
                         @endif
                     </div>
                 </div>
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Rejected volunteers') }}</div>
+                    <div class="card-header">{{ __('admin.volunteers.rejected_volunteers') }}</div>
 
                     <div class="card-body">
 
@@ -119,10 +119,10 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Proof of application</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.first_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.last_name') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.proof_of_application') }}</th>
+                                    <th scope="col">{{ __('admin.volunteers.columns.proof_of_application') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -146,7 +146,7 @@
                                 </tbody>
                             </table>
                         @else
-                            There is no banned volunteer.
+                            {{ __('admin.volunteers.no_banned_volunteer') }}
                         @endif
                     </div>
                 </div>

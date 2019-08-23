@@ -50,12 +50,12 @@ class MembershipController extends Controller
         }
 
         if ($user->hasValidMembership()) {
-            return redirect('/membership')->with('success', 'You already have a valid membership');
+            return redirect('/membership')->with('success', __('flash.membership_controller.renew_success_1'));
         } else {
             $user->membership_end_date = date('Y-m-d', strtotime('+1 years'));
             $user->save();
 
-            return redirect('/membership')->with('success', 'You now have a valid membership');
+            return redirect('/membership')->with('success', __('flash.membership_controller.renew_success_2'));
 
         }
     }

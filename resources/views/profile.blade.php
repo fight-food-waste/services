@@ -5,14 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Profile page</div>
+                    <div class="card-header">{{ __('profile.profile_page') }}</div>
 
                     <div class="card-body">
-                        Welcome, {{ $user->first_name }}<br>
+                        {{ __('profile.welcome', ['user' => $user->first_name]) }}<br>
                         @if($user->type == "member")
-                            <br>You can manage your membership <a href="{{ url('membership') }}">here</a>
+                            <br>{{ __('profile.manage_membership') }}<a href="{{ url('membership') }}">{{ __('profile.here') }}</a>
                         @elseif($user->type == "volunteer")
-                            <br>You can download your planning <a href="{{ route('planning.export') }}">here</a>
+                            <br>{{ __('profile.download_planning') }}<a href="{{ route('planning.export') }}">{{ __('profile.here') }}</a>
                         @endif
                     </div>
                 </div>

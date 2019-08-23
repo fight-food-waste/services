@@ -1,1 +1,2 @@
-Hello, here is your planning for the next 7 days.
+<?php
+{{ __('admin.planning.your_planning_message') }}

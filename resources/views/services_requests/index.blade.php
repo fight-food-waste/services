@@ -10,12 +10,12 @@
 
                 @if($user->type == 'member')
                     <div class="card">
-                        <div class="card-header">Make a new service request</div>
+                        <div class="card-header">{{ __('admin.services_requests.make_new_service_request') }}</div>
                         <div class="card-body">
                             @if($user->hasValidMembership())
                                 {!! form($form) !!}
                             @else
-                                You don't have a valid membership, so you can't request a service!
+                                {{ __('admin.services_requests.no_valid_membership') }}
                             @endif
                         </div>
                     </div>
@@ -24,19 +24,19 @@
 
                 @if($user->type == 'member')
                     <div class="card card-more">
-                        <div class="card-header">Unassigned Service Requests</div>
+                        <div class="card-header">{{ __('admin.services_requests.unassigned_service_requests') }}</div>
                         <div class="card-body">
                             @if (sizeof($unassignedServiceRequests) > 0)
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Day</th>
-                                        <th scope="col">Start time</th>
-                                        <th scope="col">End time</th>
-                                        <th scope="col">Service</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Cancel</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.cancel') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -91,7 +91,7 @@
                                     </tbody>
                                 </table>
                             @else
-                                There are no unassigned requests
+                                {{ __('admin.services_requests.no_unassigned_requests') }}
                             @endif
                         </div>
                     </div>
@@ -99,19 +99,19 @@
 
                 @if($user->type == 'volunteer')
                     <div class="card card-more">
-                        <div class="card-header">Available Service Requests</div>
+                        <div class="card-header">{{ __('admin.services_requests.available_service_requests') }}</div>
                         <div class="card-body">
                             @if (sizeof($unassignedServiceRequests) > 0)
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Day</th>
-                                        <th scope="col">Start time</th>
-                                        <th scope="col">End time</th>
-                                        <th scope="col">Service</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Pick up</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.pick_up') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -171,31 +171,32 @@
                                     </tbody>
                                 </table>
                             @else
-                                There are no available requests
+                                {{ __('admin.services_requests.no_available_request') }}
                             @endif
                         </div>
                     </div>
                 @endif
 
                 <div class="card card-more">
-                    <div class="card-header">Incoming Service Requests</div>
+                    <div class="card-header">{{ __('admin.services_requests.incoming_service_requests') }}</div>
                     <div class="card-body">
                         @if (sizeof($incomingServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Start time</th>
-                                    <th scope="col">End time</th>
-                                    <th scope="col">Service</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                     <th scope="col">Description</th>
                                     @if ($user->type == 'member')
-                                        <th scope="col">Volunteer</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.volunteer') }}</th>
                                     @endif
                                     @if ($user->type == 'volunteer')
-                                        <th scope="col">Member</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
                                     @endif
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                     <th scope="col">Cancel</th>
                                 </tr>
                                 </thead>
@@ -257,30 +258,30 @@
                                 </tbody>
                             </table>
                         @else
-                            There are no incoming requests
+                            {{ __('admin.services_requests.no_incoming_request') }}
                         @endif
                     </div>
                 </div>
                 <div class="card card-more">
-                    <div class="card-header">Past Service Requests</div>
+                    <div class="card-header">{{ __('admin.services_requests.past_service_requests') }}</div>
                     <div class="card-body">
                         @if (sizeof($pastServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Start time</th>
-                                    <th scope="col">End time</th>
-                                    <th scope="col">Service</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                     <th scope="col">Description</th>
                                     @if ($user->type == 'member')
-                                        <th scope="col">Volunteer</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.volunteer') }}</th>
                                     @endif
                                     @if ($user->type == 'volunteer')
-                                        <th scope="col">Member</th>
+                                        <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
                                     @endif
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -337,24 +338,24 @@
                                 </tbody>
                             </table>
                         @else
-                            There are no past requests
+                            {{ __('admin.services_requests.no_past_request') }}
                         @endif
                     </div>
                 </div>
                 <div class="card card-more">
-                    <div class="card-header">Rejected Service Requests</div>
+                    <div class="card-header">{{ __('admin.services_requests.rejected_service_request') }}</div>
                     <div class="card-body">
                         @if (sizeof($cancelledServiceRequests) > 0)
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Start time</th>
-                                    <th scope="col">End time</th>
-                                    <th scope="col">Service</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.day') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.start_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.end_time') }}</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.service') }}</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -404,7 +405,7 @@
                                 </tbody>
                             </table>
                         @else
-                            There are no rejected requests
+                            {{ __('admin.services_requests.no_rejected_request') }}
                         @endif
                     </div>
                 </div>

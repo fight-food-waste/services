@@ -35,7 +35,7 @@ class TimeSlotController extends Controller
 
         $timeSlot->delete();
 
-        return redirect()->back()->with('success', 'The time slot has been deleted.');
+        return redirect()->back()->with('success', __('flash.time_slot_controller.destroy_success'));
     }
 
     public function store(FormBuilder $formBuilder, Request $request)
@@ -57,13 +57,13 @@ class TimeSlotController extends Controller
             if ($timeSlot->week_day == $newTimeSlot->week_day) {
                 if (! (($timeSlot->start_time->isBefore($newTimeSlot->start_time) && $timeSlot->end_time->isBefore($newTimeSlot->start_time))
                     || ($timeSlot->start_time->isAfter($newTimeSlot->end_time) && $timeSlot->end_time->isAfter($newTimeSlot->end_time)))) {
-                    return redirect()->back()->with('error', 'The time slot is overlapping with another time slot.');
+                    return redirect()->back()->with('error', __('flash.time_slot_controller.store_error'));
                 }
             }
         }
 
         $newTimeSlot->save();
 
-        return redirect()->back()->with('success', 'The time slot has been created.');
+        return redirect()->back()->with('success', __('flash.time_slot_controller.store_success'));
     }
 }

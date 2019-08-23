@@ -12,10 +12,14 @@ class PlanningForm extends Form
         $this
             ->add('start_day', Field::DATE, [
                 'rules' => 'required|date|after_or_equal:today',
+                'label' => __('admin.planning.form.start_day'),
             ])
             ->add('end_day', Field::DATE, [
                 'rules' => 'required|date|after:today|after:start_time',
+                'label' => __('admin.planning.form.end_day'),
             ])
-            ->add('download', Field::BUTTON_SUBMIT);
+            ->add('download', Field::BUTTON_SUBMIT, [
+                'label' => __('admin.planning.form.download')
+            ]);
     }
 }

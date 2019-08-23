@@ -96,7 +96,7 @@ class RegisterController extends Controller
 
         Auth::login($member);
 
-        return redirect($this->redirectPath())->with('success', 'Registration successful!');
+        return redirect($this->redirectPath())->with('success', __('flash.register_controller.register_success'));
     }
 
     /**
@@ -147,6 +147,6 @@ class RegisterController extends Controller
 
         Auth::login($volunteer);
 
-        return redirect($this->redirectPath())->with('success', 'Registration successful!');
+        return redirect($this->redirectPath())->with('success', __('flash.register_controller.register_success'));
     }
 }
