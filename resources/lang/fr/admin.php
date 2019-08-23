@@ -125,6 +125,11 @@ return [
         'no_banned_volunteer' => "Aucun bénévole banni.",
     ],
     'planning' => [
-        'your_planning_message' => "Bonjour, voici votre planning pour les 7 prochains jours."
-    ]
+        'your_planning_message' => "Bonjour, voici votre planning pour les 7 prochains jours.",
+        'form' => [
+            'start_day' => "Jour de début",
+            'end_day' => "Jour de fin",
+            'download' => "Télécharger",
+        ]
+    ],
 ];

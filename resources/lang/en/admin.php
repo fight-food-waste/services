@@ -125,6 +125,11 @@ return [
         'no_banned_volunteer' => "There is no banned volunteer.",
     ],
     'planning' => [
-        'your_planning_message' => "Hello, here is your planning for the next 7 days."
-    ]
+        'your_planning_message' => "Hello, here is your planning for the next 7 days.",
+        'form' => [
+            'start_day' => "Start day",
+            'end_day' => "End day",
+            'download' => "Download",
+        ]
+    ],
 ];
