@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Approved volunteers') }}</div>
+                    <div class="card-header">{{ __('admin.volunteers.approved_volunteers') }}</div>
 
                     <div class="card-body">
 
@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Rejected volunteers') }}</div>
+                    <div class="card-header">{{ __('admin.volunteers.rejected_volunteers') }}</div>
 
                     <div class="card-body">
 

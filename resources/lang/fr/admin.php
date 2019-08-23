@@ -103,13 +103,15 @@ return [
         ]
     ],
     'volunteers' => [
-        "welcome_message" => "Bienvenue, :user. Cliquez sur un des liens en dessous pour gérer les ressources.",
+        'welcome_message' => "Bienvenue, :user. Cliquez sur un des liens en dessous pour gérer les ressources.",
+        'approved_volunteers' => "Bénévoles approuvés",
+        'rejected_volunteers' => "Bénévoles refusés",
         'columns' => [
             'first_name' => "Prénom",
             'last_name' => "Nom de famille",
             'proof_of_application' => "Preuve de candidature",
             'approve' => "Approuver",
-            'reject' => "Rejeter",
+            'reject' => "Refuser",
             'status' => "Status",
         ],
         'no_volunteer_waiting' => "Aucun bénévole en attente d'approbation !",

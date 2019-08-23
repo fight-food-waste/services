@@ -103,7 +103,9 @@ return [
         ]
     ],
     'volunteers' => [
-        "welcome_message" => "Welcome, :user. Click one of the links below to manage resources.",
+        'welcome_message' => "Welcome, :user. Click one of the links below to manage resources.",
+        'approved_volunteers' => "Approved volunteers",
+        'rejected_volunteers' => "Rejected volunteers",
         'columns' => [
             'first_name' => "First Name",
             'last_name' => "Last Name",
