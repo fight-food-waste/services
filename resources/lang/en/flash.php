@@ -31,9 +31,10 @@ return [
     'profile_controller' => [],
     'service_request_controller' => [
         'store_success' => "Service request completed successfully.",
-        'cancel_success' => "Service request :user has been rejected.",
+        'cancel_mail_raw' => "'Hello, the service request #service_request has been canceled by :user_first_name.",
+        'cancel_success' => "Service request :service_request has been rejected.",
         'pick_up_error' => "You can't pick up this service request",
-        'mail_raw' => "Hello, your service request #:service_request has been picked up by :user_first_name.",
+        'pick_up_mail_raw' => "Hello, your service request #:service_request has been picked up by :user_first_name.",
         'pick_up_success' => "Service request :service_request has been picked up.",
     ],
     'time_slot_controller' => [

@@ -119,16 +119,21 @@ class ServiceRequestController extends Controller
             abort_unless(($serviceRequest->status === 1 && $serviceRequest->volunteer_id === $request->user()->id), 403);
         }
 
+        $mailRawText = __('flash.service_request_controller.cancel_mail_raw', [
+            'service_request' => $serviceRequest->id,
+            'user_first_name' => $user->getFullName(),
+        ]);
+
         if ($serviceRequest->status === 1) {
             if ($request->user()->type === 'volunteer') {
-                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                Mail::raw($mailRawText,
                     function ($message) use ($serviceRequest) {
                         $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
                             ->to($serviceRequest->member->email)
                             ->subject('A service request has been canceled');
                     });
             } elseif ($request->user()->type === 'member') {
-                Mail::raw('Hello, the service request #' . $serviceRequest->id . ' has been canceled by ' . $request->user()->getFullName() . '.',
+                Mail::raw($mailRawText,
                     function ($message) use ($serviceRequest) {
                         $message->from('noreply@fight-food-waste.com', 'Fight Food Waste')
                             ->to($serviceRequest->volunteer->email)
@@ -140,7 +145,7 @@ class ServiceRequestController extends Controller
         $serviceRequest->status = -1;
         $serviceRequest->save();
 
-        return redirect(route('service_requests.index'))->with('success', __('flash.service_request_controller.cancel_success', ['user' => $request->route('id')]));
+        return redirect(route('service_requests.index'))->with('success', __('flash.service_request_controller.cancel_success', ['service_request' => $request->route('id')]));
     }
 
     public function pickUp(ServiceRequest $serviceRequest, Request $request)
@@ -157,7 +162,7 @@ class ServiceRequestController extends Controller
         $serviceRequest->volunteer_id = $request->user()->id;
         $serviceRequest->save();
 
-        Mail::raw(__('flash.service_request_controller.mail_raw', [
+        Mail::raw(__('flash.service_request_controller.pick_up_mail_raw', [
             'service_request' => $serviceRequest->id,
             'user_first_name' => $request->user()->getFullName()
         ]), function ($message) use ($serviceRequest) {
