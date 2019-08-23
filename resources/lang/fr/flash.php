@@ -28,17 +28,23 @@ return [
         'renew_success_1' => "Vous disposez déjà d'une adhésion valide",
         'renew_success_2' => "Vous êtes désormais adhérent !",
     ],
+    'planning_controller' => [
+        'export_error' => "Le planning est vide...",
+    ],
     'profile_controller' => [],
     'service_request_controller' => [
         'store_success' => "La demande de service a été effectuée avec succès.",
         'cancel_mail_raw' => "Bonjour, la demande de service #service_request a été annulée par :user_first_name.",
         'cancel_success' => "La demande de service :service_request a été rejetée.",
+        'service_request_canceled' => "Une demande de service a été annulé",
         'pick_up_error' => "Vous ne pouvez vous attribuer cette demande de service",
         'pick_up_mail_raw' => "Bonjour, votre demande de service #:service_request a été attribuée à :user_first_name.",
+        'service_picked_up' => "Votre demande de service a été attribuée",
         'pick_up_success' => "La demande de service :service_request a été attribuée.",
     ],
     'time_slot_controller' => [
         'destroy_success' => "Le créneau a été supprimé.",
         'store_success' => "Le créneau a été créé.",
+        'store_error' => "Ce créneau horaire chevauche un autre créneau horaire."
     ],
 ];

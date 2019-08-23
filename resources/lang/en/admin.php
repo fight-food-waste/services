@@ -103,7 +103,18 @@ return [
         ]
     ],
     'volunteers' => [
-        "welcome_message" => "Welcome, :user. Click one of the links below to manage resources."
+        "welcome_message" => "Welcome, :user. Click one of the links below to manage resources.",
+        'columns' => [
+            'first_name' => "First Name",
+            'last_name' => "Last Name",
+            'proof_of_application' => "Proof of application",
+            'approve' => "Approve",
+            'reject' => "Reject",
+            'status' => "Status",
+        ],
+        'no_volunteer_waiting' => "There is no volunteer waiting for approval!",
+        'no_approved_volunteer' => "There is no approved volunteer.",
+        'no_banned_volunteer' => "There is no banned volunteer.",
     ],
     'members' => [
         'columns' => [
@@ -112,5 +123,8 @@ return [
             'status' => "Status",
         ],
         'no_banned_volunteer' => "There is no banned volunteer.",
+    ],
+    'planning' => [
+        'your_planning_message' => "Hello, here is your planning for the next 7 days."
     ]
 ];

@@ -57,7 +57,7 @@ class TimeSlotController extends Controller
             if ($timeSlot->week_day == $newTimeSlot->week_day) {
                 if (! (($timeSlot->start_time->isBefore($newTimeSlot->start_time) && $timeSlot->end_time->isBefore($newTimeSlot->start_time))
                     || ($timeSlot->start_time->isAfter($newTimeSlot->end_time) && $timeSlot->end_time->isAfter($newTimeSlot->end_time)))) {
-                    return redirect()->back()->with('error', 'The time slot is overlapping with another time slot.');
+                    return redirect()->back()->with('error', __('flash.time_slot_controller.store_error'));
                 }
             }
         }

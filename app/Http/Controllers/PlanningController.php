@@ -52,7 +52,7 @@ class PlanningController extends Controller
         }
 
         if ($serviceRequests->count() === 0) {
-            return redirect()->back()->with('error', 'The planning is empty...');
+            return redirect()->back()->with('error', __('flash.planning_controller.export_error'));
         }
 
         $pdf = PDF::loadView('planning.export', compact('serviceRequests', 'user'));

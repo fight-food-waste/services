@@ -103,7 +103,18 @@ return [
         ]
     ],
     'volunteers' => [
-        "welcome_message" => "Bienvenue, :user. Cliquez sur un des liens en dessous pour gérer les ressources."
+        "welcome_message" => "Bienvenue, :user. Cliquez sur un des liens en dessous pour gérer les ressources.",
+        'columns' => [
+            'first_name' => "Prénom",
+            'last_name' => "Nom de famille",
+            'proof_of_application' => "Preuve de candidature",
+            'approve' => "Approuver",
+            'reject' => "Rejeter",
+            'status' => "Status",
+        ],
+        'no_volunteer_waiting' => "Aucun bénévole en attente d'approbation !",
+        'no_approved_volunteer' => "Aucun bénévole approuvé.",
+        'no_banned_volunteer' => "Aucun bénévole banni.",
     ],
     'members' => [
         'columns' => [
@@ -112,5 +123,8 @@ return [
             'status' => "Status",
         ],
         'no_banned_volunteer' => "Aucun bénévole banni.",
+    ],
+    'planning' => [
+        'your_planning_message' => "Bonjour, voici votre planning pour les 7 prochains jours."
     ]
 ];

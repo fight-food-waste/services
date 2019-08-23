@@ -28,17 +28,23 @@ return [
         'renew_success_1' => "You already have a valid membership",
         'renew_success_2' => "You now have a valid membership",
     ],
+    'planning_controller' => [
+        'export_error' => "The planning is empty...",
+    ],
     'profile_controller' => [],
     'service_request_controller' => [
         'store_success' => "Service request completed successfully.",
         'cancel_mail_raw' => "Hello, the service request #service_request has been canceled by :user_first_name.",
         'cancel_success' => "Service request :service_request has been rejected.",
+        'service_request_canceled' => "A service request has been canceled",
         'pick_up_error' => "You can't pick up this service request",
         'pick_up_mail_raw' => "Hello, your service request #:service_request has been picked up by :user_first_name.",
+        'service_picked_up' => "Your service request has been picked up",
         'pick_up_success' => "Service request :service_request has been picked up.",
     ],
     'time_slot_controller' => [
         'destroy_success' => "The time slot has been deleted.",
         'store_success' => "The time slot has been created.",
+        'store_error' => "The time slot is overlapping with another time slot."
     ],
 ];
