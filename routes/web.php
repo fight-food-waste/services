@@ -31,7 +31,7 @@ Route::get('home', 'HomeController@index')->name('home');
 Route::get('profile', 'ProfileController@index')->name('profile');
 
 Route::get('membership', 'MembershipController@index')->name('membership');
-Route::get('membership/renew', 'MembershipController@renew');
+Route::get('membership/renew', 'MembershipController@renew')->name('membership.renew');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.index');
