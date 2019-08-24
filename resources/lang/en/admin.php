@@ -41,6 +41,7 @@ return [
             'pick_up' => "Pick up",
             'cancel' => "Cancel",
             'status' => "Status",
+            'description' => "Description"
         ],
         'no_unassigned_requests' => "There are no unassigned request",
         'available_service_requests' => "Available Service Requests",
@@ -51,6 +52,15 @@ return [
         'no_past_request' => "There are no past request",
         'rejected_service_request' => "Rejected Service Requests",
         'no_rejected_request' => "There are no rejected request",
+        'form' => [
+            'empty_value' => "Choose a service",
+            'service' => "Service",
+            'date' => "Date",
+            'start_time' => "Start time",
+            'end_time' => "End time",
+            'description' => "Description",
+            'submit' => "Submit",
+        ],
     ],
     'time_slots' => [
         'add_new_availability_time_slot' => "Add a new availability time slot",

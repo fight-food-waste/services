@@ -2,16 +2,16 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Day</th>
-        <th scope="col">Start time</th>
-        <th scope="col">End time</th>
-        <th scope="col">Service</th>
-        <th scope="col">Description</th>
+        <th scope="col">{{ __('admin.services_requests.columns.day')  }}</th>
+        <th scope="col">{{ __('admin.services_requests.columns.start_time')  }}</th>
+        <th scope="col">{{ __('admin.services_requests.columns.end_time')  }}</th>
+        <th scope="col">{{ __('admin.services_requests.columns.service')  }}</th>
+        <th scope="col">{{ __('admin.services_requests.columns.description')  }}</th>
         @if ($user->type == 'admin')
-            <th scope="col">Volunteer</th>
+            <th scope="col">{{ __('admin.services_requests.columns.volunteer') }}</th>
         @endif
         @if ($user->type == 'volunteer' || $user->type == 'admin')
-            <th scope="col">Member</th>
+            <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
         @endif
     </tr>
     </thead>
