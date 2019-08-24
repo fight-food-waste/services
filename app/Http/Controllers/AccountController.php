@@ -92,8 +92,7 @@ class AccountController extends Controller
             $applicationFile->storeAs('application_files', $fileName);
             $attributes['application_filename'] = $fileName;
 
-        if ($user->type === 'volunteer') {
-            $user->services()->delete();
+            $user->services()->detach();
             $user->services()->attach($attributes['services']);
 
             $user->status = 0;
