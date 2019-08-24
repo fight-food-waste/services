@@ -41,6 +41,7 @@ return [
             'pick_up' => "S'attribuer",
             'cancel' => "Annuler",
             'status' => "Status",
+            'description' => "Description"
         ],
         'no_unassigned_requests' => "Aucune demande non-assignée",
         'available_service_requests' => "Demande(s) de service disponible",
@@ -51,6 +52,15 @@ return [
         'no_past_request' => "Aucune demande passée",
         'rejected_service_request' => "Demande(s) de service rejetée(s)",
         'no_rejected_request' => "Aucune demande rejetée",
+        'form' => [
+            'empty_value' => "Choisir un service",
+            'service' => "Service",
+            'date' => "Date",
+            'start_time' => "Heure de début",
+            'end_time' => "Heure de fin",
+            'description' => "Description",
+            'submit' => "Soumettre le formulaire",
+        ],
     ],
     'time_slots' => [
         'add_new_availability_time_slot' => "Ajouter un nouveau créneau horaire de disponibilité",
