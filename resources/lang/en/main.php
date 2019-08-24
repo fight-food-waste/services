@@ -15,4 +15,14 @@ return [
         'unassigned' => 'Unassigned',
         'assigned' => 'Assigned',
     ],
+    'service' => [
+        'plumbing' => 'Plumbing',
+        'car-sharing' => 'Car sharing',
+        'cooking-classes' => 'Cooking classes',
+        'repair-services' => 'Repair services',
+        'guarding' => 'Guarding',
+        'housing-dyi' => 'Housing/DYI',
+        'electricity' => 'Electricity',
+        'non-qualified-labour' => 'Non-qualified labour',
+    ],
 ];

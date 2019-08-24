@@ -24,4 +24,11 @@ class Service extends Model
     {
         return $this->belongsToMany(Volunteer::class);
     }
+
+    public function getNameAttribute($value)
+    {
+        $service = Service::where('name', $value)->first();
+
+        return __('main.service.' . $service->shortname);
+    }
 }
