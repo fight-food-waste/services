@@ -16,6 +16,9 @@
                             <li><a href="{{ route('admin.members.index') }}">{{ __('admin.index.members') }}</a></li>
                             <li><a href="{{ route('admin.services.index') }}">{{ __('admin.index.services') }}</a></li>
                             <li><a href="{{ route('planning.index') }}">Planning</a></li>
+                            <li>
+                                <a href="{{ route('admin.service_requests.index') }}">{{ __('admin.index.services_requests') }}</a>
+                            </li>
                         </ul>
 
                     </div>
