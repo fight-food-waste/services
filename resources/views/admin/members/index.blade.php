@@ -17,7 +17,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('admin.members.columns.first_name') }}</th>
-                                    <th scope="col">{{ __('admin.members.columns.last_name') }}/th>
+                                    <th scope="col">{{ __('admin.members.columns.last_name') }}</th>
                                     <th scope="col">{{ __('admin.members.columns.status') }}</th>
                                 </tr>
                                 </thead>

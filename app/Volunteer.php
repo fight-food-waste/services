@@ -59,6 +59,7 @@ class Volunteer extends User
         }
 
         if (! $isVolunteerAvailable) {
+
             return $isVolunteerAvailable;
         } else {
             foreach ($this->serviceRequests as $volunteerServiceRequest) {

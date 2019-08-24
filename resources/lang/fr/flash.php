@@ -39,13 +39,14 @@ return [
     'profile_controller' => [],
     'service_request_controller' => [
         'store_success' => "La demande de service a été effectuée avec succès.",
-        'cancel_mail_raw' => "Bonjour, la demande de service #service_request a été annulée par :user_first_name.",
+        'cancel_mail_raw' => "Bonjour, la demande de service #:service_request a été annulée par :user_first_name.",
         'cancel_success' => "La demande de service :service_request a été rejetée.",
         'service_request_canceled' => "Une demande de service a été annulé",
         'pick_up_error' => "Vous ne pouvez vous attribuer cette demande de service",
         'pick_up_mail_raw' => "Bonjour, votre demande de service #:service_request a été attribuée à :user_first_name.",
         'service_picked_up' => "Votre demande de service a été attribuée",
         'pick_up_success' => "La demande de service :service_request a été attribuée.",
+        'unapproved_account' => "Vous ne pouvez pas accéder aux demandes de services car votre compte n'a pas été approuvé.",
     ],
     'time_slot_controller' => [
         'destroy_success' => "Le créneau a été supprimé.",

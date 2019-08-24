@@ -106,6 +106,7 @@ return [
         'welcome_message' => "Bienvenue, :user. Cliquez sur un des liens en dessous pour gérer les ressources.",
         'approved_volunteers' => "Bénévoles approuvés",
         'rejected_volunteers' => "Bénévoles refusés",
+        'waiting_for_approval' => "Bénévoles en attente de validation",
         'columns' => [
             'first_name' => "Prénom",
             'last_name' => "Nom de famille",

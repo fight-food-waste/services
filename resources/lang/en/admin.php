@@ -106,6 +106,7 @@ return [
         'welcome_message' => "Welcome, :user. Click one of the links below to manage resources.",
         'approved_volunteers' => "Approved volunteers",
         'rejected_volunteers' => "Rejected volunteers",
+        'waiting_for_approval' => "Volunteers waiting for approval",
         'columns' => [
             'first_name' => "First Name",
             'last_name' => "Last Name",

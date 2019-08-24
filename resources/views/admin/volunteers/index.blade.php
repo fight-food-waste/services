@@ -7,7 +7,7 @@
                 @include('partials.alert')
 
                 <div class="card card-more">
-                    <div class="card-header">{{ __('Volunteers waiting for approval') }}</div>
+                    <div class="card-header">{{ __('admin.volunteers.waiting_for_approval') }}</div>
 
                     <div class="card-body">
 

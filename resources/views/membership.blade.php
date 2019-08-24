@@ -12,7 +12,7 @@
 
                         @if($user->type == "member")
                             @if($user->hasValidMembership())
-                                {{ __('admin.membership.membership_active_until', ['date' => $user->membership_end_date]) }}
+                                {{ __('admin.membership.membership_active_until', ['date' => $user->membership_end_date->format('Y-m-d')]) }}
                             @else
                                 {{ __('admin.membership.membership_not_active') }}
                                 <a href="{{ url('/membership/renew') }}"><button type="button" class="btn btn-primary">{{ __('admin.membership.subscribe') }}</button>

@@ -50,6 +50,9 @@ Route::prefix('admin')->group(function () {
 
     Route::get('services', 'Admin\ServiceController@index')->name('admin.services.index');
     Route::post('services', 'Admin\ServiceController@store')->name('admin.services.store');
+
+    Route::get('service-requests', 'Admin\ServiceRequestController@index')->name('admin.service_requests.index');
+    Route::get('service-requests/{service_request}/cancel', 'Admin\ServiceRequestController@cancel')->where('service_request', '[0-9]+')->name('admin.service_requests.cancel');
 });
 
 Route::get('services-requests', 'ServiceRequestController@index')->name('service_requests.index');

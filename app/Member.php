@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Tightenco\Parental\HasParent;
+use Carbon\Carbon;
 
 /**
  * App\Member
@@ -41,5 +42,10 @@ class Member extends User
     public function serviceRequests()
     {
         return $this->hasMany('App\ServiceRequest', 'member_id');
+    }
+
+    public function getMembershipEndDateAttribute($value)
+    {
+        return Carbon::parse($value);
     }
 }

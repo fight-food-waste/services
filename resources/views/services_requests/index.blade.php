@@ -58,7 +58,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
+                                                                data-dismiss="modal">{{ __('main.close') }}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -132,7 +132,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
+                                                                data-dismiss="modal">{{ __('main.close') }}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
                                         <th scope="col">{{ __('admin.services_requests.columns.member') }}</th>
                                     @endif
                                     <th scope="col">{{ __('admin.services_requests.columns.status') }}</th>
-                                    <th scope="col">Cancel</th>
+                                    <th scope="col">{{ __('admin.services_requests.columns.cancel') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -219,7 +219,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close
+                                                            data-dismiss="modal">{{ __('main.close') }}
                                                     </button>
                                                 </div>
                                             </div>
@@ -246,6 +246,9 @@
                                             <td>{{ $serviceRequest->member->first_name }}
                                                 {{ $serviceRequest->member->last_name }}</td>
                                         @endif
+                                        <td>
+                                            {{ $serviceRequest->getStatusName() }}
+                                        </td>
                                         <td>
                                             <a href="{{ route('service_requests.cancel', $serviceRequest->id) }}">
                                                 <button type="button" class="btn btn-sm btn-danger">
@@ -303,7 +306,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close
+                                                            data-dismiss="modal">{{ __('main.close') }}
                                                     </button>
                                                 </div>
                                             </div>
@@ -377,7 +380,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close
+                                                            data-dismiss="modal">{{ __('main.close') }}
                                                     </button>
                                                 </div>
                                             </div>

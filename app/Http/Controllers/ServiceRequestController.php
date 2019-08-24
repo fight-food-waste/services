@@ -29,6 +29,11 @@ class ServiceRequestController extends Controller
     public function index(FormBuilder $formBuilder, Request $request)
     {
         $user = $request->user();
+
+        if ($user->status !== 1) {
+            return redirect(route('home'))->with('error', __('flash.service_request_controller.unapproved_account'));
+        }
+
         $services = Service::all();
 
         $form = $formBuilder->create(ServiceRequestForm::class, [

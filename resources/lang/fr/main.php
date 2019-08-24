@@ -9,5 +9,10 @@ return [
     'membership' => "Adhésion",
     'services' => 'Services',
     'time_slots' => "Créneaux horaire",
-
+    'close' => 'Fermer',
+    'service_request_status' => [
+        'cancelled' => 'Annulée',
+        'unassigned' => 'Non assignée',
+        'assigned' => 'Assignée',
+    ],
 ];

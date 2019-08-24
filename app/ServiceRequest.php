@@ -98,11 +98,11 @@ class ServiceRequest extends Model
     {
         switch ($this->status) {
             case -1:
-                return "Cancelled";
+                return __('main.service_request_status.cancelled');
             case 0:
-                return "Not assigned";
+                return __('main.service_request_status.unassigned');
             case 1:
-                return "Assigned";
+                return __('main.service_request_status.assigned');
             default:
                 return "Unknown";
         }

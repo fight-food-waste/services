@@ -21,20 +21,20 @@ class VolunteerTimeSlot extends TimeSlot
     public function getWeekDayName(): string
     {
         switch ($this->week_day) {
+            case 0:
+                return __('admin.time_slots.form.monday');
             case 1:
-                return "Monday";
+                return __('admin.time_slots.form.tuesday');
             case 2:
-                return "Tuesday";
+                return __('admin.time_slots.form.wednesday');
             case 3:
-                return "Wednesday";
+                return __('admin.time_slots.form.thursday');
             case 4:
-                return "Thursday";
+                return __('admin.time_slots.form.friday');
             case 5:
-                return "Friday";
+                return __('admin.time_slots.form.saturday');
             case 6:
-                return "Saturday";
-            case 7:
-                return "Sunday";
+                return __('admin.time_slots.form.sunday');
             default:
                 return "Unknown";
         }
