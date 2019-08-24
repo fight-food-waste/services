@@ -12,6 +12,11 @@ return [
             'reject_volunteer_success' => "Le bénévole :user a été rejeté.",
         ],
     ],
+    'account_controller' => [
+        'update_success' => "Votre compte a bien été mis à jour !",
+        'destroy_error' => "Une erreur s'est produite lors de la suppression de votre compte.",
+        'destroy_success' => "Votre compte a été supprimé avec succès.",
+    ],
     'login_controller' => [
         'logout_success' => "Déconnexion faite avec succès.",
     ],
