@@ -17,7 +17,7 @@ class VolunteerSeeder extends Seeder
             'first_name' => 'Thomas',
             'last_name' => 'Martin',
             'email' => 'volunteer1@gmail.com',
-            'password' => Hash::make('qwertyuiop'), // password
+            'password' => Hash::make('password'),
             'status' => 1,
             'application_filename' => '5d1015e662aaf.pdf',
             'created_at' => date('Y-m-d H:i:s'),
@@ -28,7 +28,7 @@ class VolunteerSeeder extends Seeder
             'first_name' => 'Arthur',
             'last_name' => 'Papaye',
             'email' => 'volunteer2@gmail.com',
-            'password' => Hash::make('qwertyuiop'), // password
+            'password' => Hash::make('password'),
             'status' => 1,
             'application_filename' => 'jdkjfdhfjs.pdf',
             'created_at' => date('Y-m-d H:i:s'),

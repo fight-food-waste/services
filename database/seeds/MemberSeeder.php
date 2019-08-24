@@ -17,7 +17,7 @@ class MemberSeeder extends Seeder
             'first_name' => 'Eric',
             'last_name' => 'Dupuis',
             'email' => 'member1@gmail.com',
-            'password' => Hash::make('qwertyuiop'), // password
+            'password' => Hash::make('password'),
             'status' => 1,
             'membership_end_date' => '2020-06-25',
             'created_at' => date('Y-m-d H:i:s'),
@@ -28,7 +28,7 @@ class MemberSeeder extends Seeder
             'first_name' => 'Erwan',
             'last_name' => 'Lachaise',
             'email' => 'member2@gmail.com',
-            'password' => Hash::make('qwertyuiop'), // password
+            'password' => Hash::make('password'),
             'status' => 1,
             'membership_end_date' => '2020-03-12',
             'created_at' => date('Y-m-d H:i:s'),

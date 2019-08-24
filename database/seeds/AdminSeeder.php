@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
             'first_name' => 'Jean',
             'last_name' => 'Dupont',
             'email' => 'admin1@gmail.com',
-            'password' => Hash::make('qwertyuiop'), // password
+            'password' => Hash::make('password'),
             'status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
