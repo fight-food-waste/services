@@ -21,6 +21,11 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::get('account', 'AccountController@index')->name('account.index');
+Route::get('account/edit', 'AccountController@edit')->name('account.edit');
+Route::delete('account', 'AccountController@destroy')->name('account.destroy');
+Route::put('account', 'AccountController@update')->name('account.update');
+
 Route::get('register', 'Auth\RegisterController@chooseUserType')->name('register');
 Route::get('register/member', 'Auth\RegisterController@createMember')->name('register.member.create');
 Route::post('register/member', 'Auth\RegisterController@storeMember')->name('register.member.store');

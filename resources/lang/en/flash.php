@@ -12,6 +12,11 @@ return [
             'reject_volunteer_success' => "Volunteer :user has been rejected.",
         ],
     ],
+    'account_controller' => [
+        'update_success' => "Your account has been successfully updated!",
+        'destroy_error' => "Something went wrong while deleting your account.",
+        'destroy_success' => "Your account has been deleted.",
+    ],
     'login_controller' => [
         'logout_success' => 'Logged out successfully.',
     ],

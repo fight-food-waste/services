@@ -17,7 +17,7 @@ class CreateServiceUserTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
         });
