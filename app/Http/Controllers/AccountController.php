@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Forms\AdminForm;
 use App\Forms\MemberForm;
 use App\Forms\VolunteerForm;
-use App\Volunteer;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -94,6 +93,8 @@ class AccountController extends Controller
         if ($user->type === 'volunteer') {
             $user->services()->delete();
             $user->services()->attach($attributes['services']);
+
+            $user->status = 0;
         }
 
         $attributes['password'] = Hash::make($attributes['password']);
