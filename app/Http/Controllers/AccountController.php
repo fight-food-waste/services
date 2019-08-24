@@ -84,11 +84,13 @@ class AccountController extends Controller
         $user->last_name = $attributes['last_name'];
         $user->email = $attributes['email'];
 
-        // Upload application file
-        $applicationFile = $attributes['application_file'];
-        $fileName = uniqid() . ".pdf";
-        $applicationFile->storeAs('application_files', $fileName);
-        $attributes['application_filename'] = $fileName;
+        if ($user->type === 'volunteer') {
+
+            // Upload application file
+            $applicationFile = $attributes['application_file'];
+            $fileName = uniqid() . ".pdf";
+            $applicationFile->storeAs('application_files', $fileName);
+            $attributes['application_filename'] = $fileName;
 
         if ($user->type === 'volunteer') {
             $user->services()->delete();
